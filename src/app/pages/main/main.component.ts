@@ -1,6 +1,8 @@
+import { AuthService } from './../../services/api/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FacemashApiService } from '../../services/api/facemash-api.service';
 import { CommonModule } from '@angular/common';
+import { UserResponse } from '../../types/user_model';
 
 @Component({
   selector: 'app-main',
@@ -10,15 +12,30 @@ import { CommonModule } from '@angular/common';
   styleUrl: './main.component.scss',
 })
 export class MainComponent implements OnInit {
+  constructor(private fmapi: FacemashApiService, private auth: AuthService) {}
 
-  constructor(private fmapi: FacemashApiService) {}
-
-  public pictures: any[] = [];
+  public users: any[] = [];
+  public me: UserResponse | null = null;
+  public isLogin: boolean  = false;
 
   ngOnInit() {
-    this.fmapi.getAll().subscribe((data) => {
-      this.pictures = data;
-    })
+    this.fmapi.getUserAll().subscribe((data) => {
+      this.users = data;
+    });
+    this.isLogin = this.auth.isLoggedIn()
   }
 
+  onClickLoginButton() {
+    this.auth.login('midoriya_izuku@gmail.com', '123456').subscribe((data) => {
+      if (data.token) {
+        sessionStorage.setItem('token', data.token);
+        this.fmapi.getMe().subscribe((user)=> {
+          this.auth.setUserLogin(user);
+        })
+      }
+    });
+  }
+
+
+  
 }
