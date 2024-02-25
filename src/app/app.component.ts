@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/api/auth.service';
@@ -12,16 +12,30 @@ import { UserResponse } from './types/user_model';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private auth: AuthService, private fmapi: FacemashApiService) {
+  }
+
+  async ngOnInit() {
+    await this.initializeApp();
+  }
+
+  async initializeApp() {
     if (this.auth.getToken()) {
-      this.fmapi.refreshToken().subscribe((data) => {
-        if (data.isExpire) {
-          sessionStorage.setItem('token', data.newToken);
-          console.log('token หมดอายุ');
+      try {
+        const refreshed = await this.fmapi.refreshToken().toPromise();
+        if (refreshed.isExpire) {
+          sessionStorage.setItem('token', refreshed.newToken);
+          const user = await this.fmapi.getMe().toPromise();
+          this.auth.setUser(user);
+        } else {
+          const user = await this.fmapi.getMe().toPromise();
+          this.auth.setUser(user);
         }
-        console.log('token ยังไม่หมด');
-      });
+      } catch (error) {
+        // Handle error appropriately, e.g., show error message to the user
+        console.error('Error occurred during initialization:', error);
+      }
     }
   }
 }

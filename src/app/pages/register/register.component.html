@@ -13,13 +13,46 @@
       class="w-[38rem] max-w-[38rem] h-full bg-white transition-all duration-300"
     >
       <div class="flex flex-col mt-16 lg:mt-28">
-        <div class="font-bold text-2xl text-center lg:text-4xl lg:text-left pb-2">Log In</div>
+        <div class="font-bold text-2xl text-center lg:text-4xl lg:text-left  pb-2">Sign Up</div>
         <div class="font-light text-md lg:text-lg">
-          Enter your email and password for sign in
+          Fill in complete information to apply for membership.
         </div>
       </div>
 
       <div class="flex flex-col mt-8 lg:mt-16 lg:max-w-[28rem] gap-y-6">
+        <div class="flex flex-col gap-y-3">
+          <span class="font-light">Display Name</span>
+          <div class="grid grid-cols-12 border border-black rounded-md py-3">
+            <div class="col-span-2 flex items-center justify-center">
+              <svg
+                class="w-8 h-4 lg:w-12 lg:h-6"
+                viewBox="0 0 14 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_131_737)">
+                  <path
+                    d="M7 8C9.20938 8 11 6.20937 11 4C11 1.79063 9.20938 0 7 0C4.79063 0 3 1.79063 3 4C3 6.20937 4.79063 8 7 8ZM9.8 9H9.27812C8.58437 9.31875 7.8125 9.5 7 9.5C6.1875 9.5 5.41875 9.31875 4.72188 9H4.2C1.88125 9 0 10.8813 0 13.2V14.5C0 15.3281 0.671875 16 1.5 16H12.5C13.3281 16 14 15.3281 14 14.5V13.2C14 10.8813 12.1187 9 9.8 9Z"
+                    fill="black"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_131_737">
+                    <rect class="w-8 h-4 lg:w-12 lg:h-6" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+            <div class="col-span-10">
+              <input
+                [(ngModel)]="displayName"
+                class="h-12 w-full lg:h-full outline-none rounded-md"
+                type="text"
+                placeholder="example. Izuku Midoriya"
+              />
+            </div>
+          </div>
+        </div>
         <div class="flex flex-col gap-y-3">
           <span class="font-light">Email</span>
           <div class="grid grid-cols-12 border border-black rounded-md py-3">
@@ -80,18 +113,18 @@
           </div>
         </div>
         <div
-          (click)="SignIn()"
+          (click)="SignUp()"
           class="gap-y-3 cursor-pointer hover:bg-opacity-75 transition-all duration-300 ease-in-out bg-black h-12 lg:h-14 rounded-lg my-4 flex justify-center items-center"
         >
-          <div class="text-white text-xl font-light">Sign in</div>
+          <div class="text-white text-xl font-light">Sign up</div>
         </div>
         <div class="flex flex-col gap-y-3">
           <div class="text-black text-sm md:text-md font-light">
-            Don’t have an account ?
+            Already have an account?
             <span
-              (click)="goRegister()"
+              (click)="goLogin()"
               class="font-bold text-sm md:text-md cursor-pointer"
-              >Sign Up</span
+              >Sign In</span
             >
           </div>
         </div>

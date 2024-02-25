@@ -1,0 +1,44 @@
+<div class="w-full h-[3rem] bg-white flex justify-between items-center mt-4">
+  <div>
+    <div *ngIf="user">
+      <div
+        class="bg-black flex justify-center items-center rounded-md cursor-pointer"
+      >
+        <svg
+          class="w-8 h-10 lg:w-12 lg:h-10 p-1"
+          viewBox="0 0 13 21"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.5985 11.1972L3.70102 19.1666C3.31914 19.5521 2.70164 19.5521 2.32383 19.1666L1.40164 18.2355C1.01977 17.85 1.01977 17.2306 1.40164 16.8451L7.65789 10.5L1.40164 4.15483C1.02383 3.76929 1.02383 3.14995 1.40164 2.7644L2.32383 1.83335C2.7057 1.4478 3.3232 1.4478 3.70102 1.83335L11.5985 9.80269C11.9804 10.1882 11.9804 10.8117 11.5985 11.1931V11.1972Z"
+            fill="white"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div>
+
+    <div *ngIf="!user" class="flex flex-row gap-x-3">
+      <div (click)="goLogin()" class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1">Login</div>
+      <div (click)="goRegister()" class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1">Sign Up</div>
+    </div>
+
+    <div class="relative" *ngIf="user">
+      <div
+        class="bg-gray-300 w-[45px] h-[45px] object-cover bg-cover rounded-ful rounded-full"
+      >
+        <img
+          class="w-[45px] h-[45px] object-cover bg-center bg-cover rounded-full"
+          [src]="
+            user?.avatar_url ??
+            'https://www.computerhope.com/jargon/g/guest-user.png'
+          "
+        />
+      </div>
+      <p (click)="logout()" class="absolute -bottom-6 cursor-pointer">logout</p>
+    </div>
+  </div>
+</div>
