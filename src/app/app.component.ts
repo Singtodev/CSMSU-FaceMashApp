@@ -13,14 +13,21 @@ import { UserResponse } from './types/user_model';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
+ 
+  public isLoading = false;
+
   constructor(private auth: AuthService, private fmapi: FacemashApiService) {
   }
 
   async ngOnInit() {
     await this.initializeApp();
+    setTimeout(()=> {
+      this.isLoading = false;
+    },1000)
   }
 
   async initializeApp() {
+    this.isLoading = true;
     if (this.auth.getToken()) {
       try {
         const refreshed = await this.fmapi.refreshToken().toPromise();
