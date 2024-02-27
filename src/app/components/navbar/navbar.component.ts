@@ -3,6 +3,7 @@ import { AuthService } from '../../services/api/auth.service';
 import { UserResponse } from '../../types/user_model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -37,9 +38,17 @@ export class NavbarComponent implements OnInit {
     this.auth.goRegister();
   }
 
-  logout(){
+  async logout(){
     this.auth.logout();
-    this.goLogin();
+    await Swal.fire({
+      title: 'Logout Successful!',
+      text: 'Wait a moment, the system will navigate',
+      icon: 'success',
+      confirmButtonText: 'Ok',
+      confirmButtonColor: '#000',
+    }).then(() => {
+      window.location.reload();
+    });
   }
 
   validEvent(){

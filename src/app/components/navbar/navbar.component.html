@@ -1,11 +1,13 @@
-<div class="w-full h-[3rem] bg-white flex justify-between items-center mt-4">
+<div
+  class="w-full h-[3rem] bg-white flex justify-between items-center py-10 px-[2rem] lg:px-0 transition-all duration-300"
+>
   <div>
     <div *ngIf="user" (click)="validEvent()">
       <div
         class="bg-black flex justify-center items-center rounded-md cursor-pointer"
       >
         <svg
-          class="w-8 h-10 lg:w-12 lg:h-10 p-1"
+          class="w-10 h-10 lg:w-12 lg:h-12 p-1"
           viewBox="0 0 13 21"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -20,10 +22,19 @@
   </div>
 
   <div>
-
     <div *ngIf="!user" class="flex flex-row gap-x-3">
-      <div (click)="goLogin()" class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1">Login</div>
-      <div (click)="goRegister()" class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1">Sign Up</div>
+      <div
+        (click)="goLogin()"
+        class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1"
+      >
+        Login
+      </div>
+      <div
+        (click)="goRegister()"
+        class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1"
+      >
+        Sign Up
+      </div>
     </div>
 
     <div class="relative" *ngIf="user">
@@ -38,7 +49,24 @@
           "
         />
       </div>
-      <p (click)="logout()" class="absolute -bottom-6 cursor-pointer">logout</p>
+      <div class="absolute -bottom-[3rem] -left-[1rem] w-[7rem]">
+        <p (click)="logout()" class="cursor-pointer flex flex-row gap-x-3">
+          <svg
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M24.2676 13.3301L16.0645 21.5333C15.332 22.2657 14.0625 21.753 14.0625 20.7032V16.0157H7.42187C6.77246 16.0157 6.25 15.4932 6.25 14.8438V10.1563C6.25 9.5069 6.77246 8.98444 7.42187 8.98444H14.0625V4.29694C14.0625 3.25202 15.3271 2.73444 16.0645 3.46686L24.2676 11.67C24.7217 12.129 24.7217 12.8712 24.2676 13.3301ZM9.375 21.2891V19.336C9.375 19.0137 9.11133 18.7501 8.78906 18.7501H4.6875C3.82324 18.7501 3.125 18.0518 3.125 17.1876V7.81256C3.125 6.9483 3.82324 6.25006 4.6875 6.25006H8.78906C9.11133 6.25006 9.375 5.98639 9.375 5.66412V3.711C9.375 3.38873 9.11133 3.12506 8.78906 3.12506H4.6875C2.09961 3.12506 0 5.22467 0 7.81256V17.1876C0 19.7755 2.09961 21.8751 4.6875 21.8751H8.78906C9.11133 21.8751 9.375 21.6114 9.375 21.2891Z"
+              fill="black"
+            />
+          </svg>
+
+          Sign Out
+        </p>
+      </div>
     </div>
   </div>
 </div>
