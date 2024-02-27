@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../services/api/auth.service';
 import { UserResponse } from '../../types/user_model';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
+
+
+  @Output() openGallery = new EventEmitter<any>();
+
   public user: UserResponse | any = null;
 
   constructor(private auth: AuthService) {}
@@ -36,6 +40,11 @@ export class NavbarComponent implements OnInit {
   logout(){
     this.auth.logout();
     this.goLogin();
+  }
+
+  validEvent(){
+    console.log("hi");
+    this.openGallery.emit();
   }
 
   

@@ -1,0 +1,11 @@
+<div
+  *ngIf="isOpen"
+  class="fixed top-0 left-0 w-full h-full z-1 bg-black/50 transition-transform duration-300"
+>
+  <div
+    (click)="sendEventClose()"
+    class="fixed bg-white h-full w-[50rem] transition-transform duration-300"
+  >
+    close
+  </div>
+</div>
