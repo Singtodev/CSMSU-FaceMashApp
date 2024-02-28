@@ -12,4 +12,5 @@ export class CardVoteComponent {
 
   @Input() image: string = "";
   @Input() score: string = "";
+  @Input() rank: string = "";
 }

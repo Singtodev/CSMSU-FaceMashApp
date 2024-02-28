@@ -3,6 +3,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ToprankComponent } from './pages/toprank/toprank.component';
 
 export const routes: Routes = [
     {
@@ -17,6 +18,10 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent
+    },
+    {
+        path: 'toprank',
+        component: ToprankComponent
     },
     {
         path: '**',

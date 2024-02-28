@@ -3,6 +3,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { BattleComponent } from '../../components/battle/battle.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +14,21 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent {
 
+
+  constructor(private router : Router){
+
+  }
+
   public isSidebarOpen = false;
 
   public toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
     console.log(this.isSidebarOpen);
+  }
+
+
+  public goToTopRank(){
+    this.router.navigate(['toprank'])
   }
 
 }

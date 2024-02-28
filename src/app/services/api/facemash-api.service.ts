@@ -42,4 +42,25 @@ export class FacemashApiService {
     if (!token) return of(null);
     return this.http.get(url , this.makeHeader());
   }
+
+  public randomPictures(cooldownItems: any[]): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/picture/random?notshow=${cooldownItems.join(',')}`}`;
+    return this.http.get(url);
+  }
+
+  public getAllPictures(): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/picture`}`;
+    return this.http.get(url);
+  }
+
+  public vote(uid:string , winnerId: string, opponentId: string): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/picture/vote`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.post(url ,  {
+      uid,
+      winnerId,
+      opponentId
+    },this.makeHeader());
+  }
 }

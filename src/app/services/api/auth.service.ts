@@ -59,6 +59,17 @@ export class AuthService {
     );
   }
 
+  public register(email: string, full_name: string , password: string): Observable<any> {
+    return this.http.post<any>(
+      `${configs.facemashConfig.API_PATH}/auth/register`,
+      {
+        email,
+        password,
+        full_name
+      }
+    );
+  }
+
   public getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
       return sessionStorage.getItem('token') || null;

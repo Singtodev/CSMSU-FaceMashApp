@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../services/api/auth.service';
 import { UserResponse } from '../../types/user_model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -15,11 +15,15 @@ import Swal from 'sweetalert2';
 export class NavbarComponent implements OnInit {
 
 
-  @Output() openGallery = new EventEmitter<any>();
+  @Output() sendEvent = new EventEmitter<any>();
 
   public user: UserResponse | any = null;
 
   constructor(private auth: AuthService) {}
+
+
+  @Input() navigateArrow = ''
+
   ngOnInit(): void {
     this.auth.currentUser.subscribe(
       (user) => {
@@ -52,8 +56,7 @@ export class NavbarComponent implements OnInit {
   }
 
   validEvent(){
-    console.log("hi");
-    this.openGallery.emit();
+    this.sendEvent.emit();
   }
 
   

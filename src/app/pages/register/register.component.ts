@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 export class RegisterComponent {
   public email: string = '';
   public password: string = '';
-  public displayName: string = '';
+  public full_name: string = '';
   public loading: boolean = false;
 
   constructor(private auth: AuthService) {}
@@ -29,14 +29,27 @@ export class RegisterComponent {
   }
 
   SignUp() {
-    Swal.fire({
-      title: 'SignUp Successful!',
-      text: 'Wait a moment, the system will navigate to the next page.',
-      icon: 'success',
-      confirmButtonText: 'Ok',
-      confirmButtonColor: '#000',
-    }).then(() => {
-      this.goHome();
-    });
+    this.auth.register(this.email,this.full_name ,this.password).subscribe(
+      (data) => {
+        Swal.fire({
+          title: 'Register Successful!',
+          text: 'Wait a moment, the system will navigate to the next page.',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#000',
+        }).then(() => {
+          this.auth.goLogin();
+        });
+      },
+      (err) => {
+        Swal.fire({
+          title: 'info',
+          text: err.error.msg || err.error.errors[0].msg,
+          icon: 'info',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#000',
+        });
+      }
+    );
   }
 }

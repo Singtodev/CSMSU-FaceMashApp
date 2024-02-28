@@ -2,8 +2,9 @@
   class="w-full h-[3rem] bg-white flex justify-between items-center py-10 px-[2rem] lg:px-0 transition-all duration-300"
 >
   <div>
-    <div *ngIf="user" (click)="validEvent()">
+    <div (click)="validEvent()">
       <div
+        [ngClass]="{ 'rotate-180': navigateArrow === 'left' , 'rotate-0': navigateArrow === 'right'  }"
         class="bg-black flex justify-center items-center rounded-md cursor-pointer"
       >
         <svg

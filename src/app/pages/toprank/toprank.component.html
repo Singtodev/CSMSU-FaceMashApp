@@ -1,0 +1,16 @@
+<div class="flex justify-center items-center">
+  <div class="w-[60rem] lg:w-[88rem] mx-auto">
+    <app-navbar (sendEvent)="goBack()" navigateArrow="left" />
+    <div class="mt-4">
+      <div class="text-2xl py-4">Top Ranked</div>
+      <div class="grid grid-cols-6">
+        <app-card-vote
+          *ngFor="let item of pictures"
+          [score]="item.vote_count"
+          [image]="item.url"
+          [rank]="item.rank"
+        />
+      </div>
+    </div>
+  </div>
+</div>
