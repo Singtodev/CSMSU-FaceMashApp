@@ -7,4 +7,4 @@ const devConfig = {
 }
 
 
-export default devConfig;
+export default prodConfig;
