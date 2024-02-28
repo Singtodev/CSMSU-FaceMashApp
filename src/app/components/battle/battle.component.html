@@ -13,23 +13,22 @@
         [src]="picture?.url"
       />
     </div>
-    
   </div>
   <div class="flex flex-row w-full justify-center items-center gap-x-4">
     <div
-      class="transition-all duration-300  rounded-xl bg-[#FF8B72] px-6 py-2 lg:py-4 w-[6rem] lg:w-[12rem] text-center text-white font-light text-md"
+      class="transition-all duration-300 rounded-xl bg-[#FF8B72] px-6 py-2 lg:py-4 w-[6rem] lg:w-[12rem] text-center text-white font-light text-md"
     >
-      <p>Red</p>
+      <p class="whitespace-nowrap">{{ getPlayer(0) }}</p>
     </div>
     <div
-      class="transition-all duration-300  rounded-xl bg-black px-3 lg:px-6 py-3 lg:py-6 w-[6rem] lg:w-[14rem] text-center text-white font-medium text-2xl"
+      class="transition-all duration-300 rounded-xl bg-black px-3 lg:px-6 py-3 lg:py-6 w-[6rem] lg:w-[14rem] text-center text-white font-medium text-2xl"
     >
       Rules
     </div>
     <div
       class="transition-all duration-300 rounded-xl bg-[#72BBFF] px-6 py-2 lg:py-4 w-[6rem] lg:w-[12rem] text-center text-white font-light text-md"
     >
-      <p>Blue</p>
+      <p class="whitespace-nowrap">{{ getPlayer(1) }}</p>
     </div>
   </div>
 

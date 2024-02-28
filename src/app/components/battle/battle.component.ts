@@ -24,7 +24,7 @@ export class BattleComponent implements OnInit {
     private votecd: VoteCooldownService
   ) {}
 
-  public pictures: Picture[] = [];
+  public pictures: any[] = [];
 
   ngOnInit(): void {
     this.loadRandomPictures();
@@ -34,8 +34,6 @@ export class BattleComponent implements OnInit {
     // remove expire cooldown
     this.votecd.removeExpiredCooldowns();
     let cooldownItems = [...this.votecd.getAllCooldowns().keys()];
-
-    console.log(cooldownItems);
 
     // fetching
     this.fmapi.randomPictures(cooldownItems).subscribe(
@@ -53,11 +51,17 @@ export class BattleComponent implements OnInit {
     );
   }
 
+
+  getPlayer(id: number){
+    return this.pictures[id]?.name.length > 20 ? this.pictures[id]?.name.slice(0,21) + "...." : this.pictures[id]?.name ?? '';
+  }
+
   public vote(id: any) {
+    let opponentId:any = this.pictures.filter((item) => item.pid != id)[0].pid;
     if (this.auth.currentUserValue != null) {
       this.votecd.findCooldown(id);
       let uid: any = this.auth.currentUserValue.uid;
-      this.fmapi.vote(uid, id, id).subscribe((data) => {
+      this.fmapi.vote(uid, id, opponentId).subscribe((data) => {
         if (data.affectedRows === 1) {
           Toastify({
             text: 'Vote Success !',
