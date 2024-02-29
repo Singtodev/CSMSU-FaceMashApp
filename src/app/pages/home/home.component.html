@@ -1,8 +1,11 @@
-<div class="flex justify-center items-center">
+<div class="flex flex-col justify-center items-center">
   <div class="w-[60rem] lg:w-[88rem] mx-auto">
-    <app-navbar  (sendEvent)="toggleSidebar()" />
-    <div class="w-full text-center py-4 lg:py-0">Choose the picture you like the most.</div>
+    <app-navbar (sendEvent)="toggleSidebar()" />
+    <div class="w-full text-center py-4 lg:py-0">
+      Choose the picture you like the most.
+    </div>
     <app-battle />
+
   </div>
 </div>
 <app-sidebar [isOpen]="isSidebarOpen" (closeEvent)="toggleSidebar()" />

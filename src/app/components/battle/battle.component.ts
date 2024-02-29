@@ -25,6 +25,7 @@ export class BattleComponent implements OnInit {
   ) {}
 
   public pictures: any[] = [];
+  public isLoading: boolean = false;
 
   ngOnInit(): void {
     this.loadRandomPictures();
@@ -32,6 +33,7 @@ export class BattleComponent implements OnInit {
 
   loadRandomPictures(): void {
     // remove expire cooldown
+    this.isLoading = true;
     this.votecd.removeExpiredCooldowns();
     let cooldownItems = [...this.votecd.getAllCooldowns().keys()];
 
@@ -39,6 +41,7 @@ export class BattleComponent implements OnInit {
     this.fmapi.randomPictures(cooldownItems).subscribe(
       (data: Picture[]) => {
         this.pictures = data;
+        this.isLoading = false;
       },
       (error) => {
         if (

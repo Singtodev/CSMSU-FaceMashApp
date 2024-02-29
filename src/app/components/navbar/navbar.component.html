@@ -4,7 +4,10 @@
   <div>
     <div (click)="validEvent()">
       <div
-        [ngClass]="{ 'rotate-180': navigateArrow === 'left' , 'rotate-0': navigateArrow === 'right'  }"
+        [ngClass]="{
+          'rotate-180': navigateArrow === 'left',
+          'rotate-0': navigateArrow === 'right'
+        }"
         class="bg-black flex justify-center items-center rounded-md cursor-pointer"
       >
         <svg
@@ -50,11 +53,44 @@
           "
         />
       </div>
-      <div class="absolute -bottom-[3rem] -left-[1rem] w-[7rem]">
-        <p (click)="logout()" class="cursor-pointer flex flex-row gap-x-3">
+
+      <div
+        class="absolute -bottom-[5rem] flex flex-col gap-y-3 -left-[1rem] w-[7rem]"
+      >
+        <p
+          (click)="goSetting()"
+          class="group hover:bg-black/50 px-1 whitespace-nowrap rounded-md hover:text-white cursor-pointer flex flex-row gap-x-3"
+        >
           <svg
             width="25"
             height="25"
+            viewBox="0 0 22 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_68_694)">
+              <path
+                d="M20.9426 13.5651L19.1122 12.5081C19.2969 11.5112 19.2969 10.4886 19.1122 9.49169L20.9426 8.43466C21.1532 8.31435 21.2477 8.06513 21.179 7.8331C20.702 6.30341 19.8899 4.91982 18.8286 3.76825C18.6653 3.59208 18.3989 3.54911 18.1926 3.66943L16.3622 4.72646C15.593 4.06474 14.7079 3.55341 13.7497 3.21825V1.10849C13.7497 0.867862 13.5821 0.657316 13.3458 0.605753C11.7688 0.253409 10.1532 0.270597 8.65358 0.605753C8.41725 0.657316 8.24968 0.867862 8.24968 1.10849V3.22255C7.29577 3.562 6.41061 4.07333 5.63718 4.73075L3.811 3.67372C3.60046 3.55341 3.33835 3.59208 3.17507 3.77255C2.11374 4.91982 1.30163 6.30341 0.824677 7.83739C0.75163 8.06943 0.850458 8.31864 1.06101 8.43896L2.89147 9.49599C2.70671 10.4929 2.70671 11.5155 2.89147 12.5124L1.06101 13.5694C0.850458 13.6897 0.755927 13.939 0.824677 14.171C1.30163 15.7007 2.11374 17.0843 3.17507 18.2358C3.33835 18.412 3.60475 18.455 3.811 18.3347L5.64147 17.2776C6.41061 17.9393 7.29577 18.4507 8.25397 18.7858V20.8999C8.25397 21.1405 8.42155 21.3511 8.65788 21.4026C10.2348 21.755 11.8505 21.7378 13.3501 21.4026C13.5864 21.3511 13.754 21.1405 13.754 20.8999V18.7858C14.7079 18.4464 15.593 17.9351 16.3665 17.2776L18.1969 18.3347C18.4075 18.455 18.6696 18.4163 18.8329 18.2358C19.8942 17.0886 20.7063 15.705 21.1833 14.171C21.2477 13.9347 21.1532 13.6854 20.9426 13.5651ZM10.9997 14.4374C9.10476 14.4374 7.56218 12.8948 7.56218 10.9999C7.56218 9.10497 9.10476 7.56239 10.9997 7.56239C12.8946 7.56239 14.4372 9.10497 14.4372 10.9999C14.4372 12.8948 12.8946 14.4374 10.9997 14.4374Z"
+                fill="black"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_68_694">
+                <rect width="22" height="22" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+
+          Setting
+        </p>
+        <p
+          (click)="logout()"
+          class="group hover:bg-black/50 px-1 whitespace-nowrap rounded-md hover:text-white cursor-pointer flex flex-row gap-x-3"
+        >
+          <svg
+            width="25"
+            height="25"
+            class="group-hover:text-white"
             viewBox="0 0 25 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

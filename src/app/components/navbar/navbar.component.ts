@@ -4,6 +4,7 @@ import { UserResponse } from '../../types/user_model';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,7 @@ export class NavbarComponent implements OnInit {
 
   public user: UserResponse | any = null;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService  , private router : Router) {}
 
 
   @Input() navigateArrow = ''
@@ -40,6 +41,10 @@ export class NavbarComponent implements OnInit {
 
   goRegister(){
     this.auth.goRegister();
+  }
+
+  goSetting(){
+    this.router.navigate(['setting']);
   }
 
   async logout(){

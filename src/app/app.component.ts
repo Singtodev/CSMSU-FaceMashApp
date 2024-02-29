@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     await this.initializeApp();
     setTimeout(()=> {
       this.isLoading = false;
-    },1000)
+    },3000)
   }
 
   async initializeApp() {
