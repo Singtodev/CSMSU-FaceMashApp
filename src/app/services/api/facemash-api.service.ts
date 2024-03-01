@@ -36,6 +36,14 @@ export class FacemashApiService {
     return this.http.get(url , this.makeHeader());
   }
 
+  public getMePicture(): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/picture/me`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.get(url , this.makeHeader());
+  }
+
+
   public refreshToken(): Observable<any>{
     let url = `${configs.facemashConfig.API_PATH + '/auth/refresh_token'}`;
     const token = this.as.getToken();
@@ -52,6 +60,7 @@ export class FacemashApiService {
     let url = `${configs.facemashConfig.API_PATH + `/picture`}`;
     return this.http.get(url);
   }
+  
 
   public vote(uid:string , winnerId: string, opponentId: string): Observable<any> {
     let url = `${configs.facemashConfig.API_PATH + `/picture/vote`}`;

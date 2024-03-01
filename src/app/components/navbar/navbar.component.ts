@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
 
 
   @Input() navigateArrow = ''
-
+  @Input() hideNavigate:boolean = false;
   ngOnInit(): void {
     this.auth.currentUser.subscribe(
       (user) => {
@@ -33,7 +33,6 @@ export class NavbarComponent implements OnInit {
       (err) => {}
     );
   }
-
 
   goLogin(){
     this.auth.goLogin();
