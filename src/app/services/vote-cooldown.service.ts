@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VoteCooldownService {
-
   private cacheMap = new Map<number, number>(); // Map<ID, cooldownEndTime>
 
-  constructor() { }
+  constructor() {}
 
   findCooldown(id: number): boolean {
     if (this.cacheMap.has(id)) {
-      console.log("Cooldown active");
+      console.log('Cooldown active');
       return true;
     } else {
       this.setCooldown(id);
@@ -20,7 +19,7 @@ export class VoteCooldownService {
   }
 
   private setCooldown(id: number): void {
-    const cooldownEndTime = new Date().getTime() + 60 * 1000;
+    const cooldownEndTime = new Date().getTime() + 15 * 1000; // Set cooldown for 1 minute
     this.cacheMap.set(id, cooldownEndTime);
   }
 
@@ -29,7 +28,8 @@ export class VoteCooldownService {
       const currentTime = new Date().getTime();
       const cooldownEndTime = this.cacheMap.get(id)!;
       const remainingTime = cooldownEndTime - currentTime;
-      return Math.max(remainingTime, 0); // Ensure remaining time is non-negative
+      const remainingSeconds = Math.max(remainingTime / 1000, 0); // Convert milliseconds to seconds
+      return parseFloat(remainingSeconds.toFixed(2));
     } else {
       return 0; // No cooldown active for the given ID
     }

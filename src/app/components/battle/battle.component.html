@@ -1,5 +1,8 @@
 <div class="w-[25rem] h-[35rem] lg:w-[60rem] lg:h-[38rem] mx-auto">
-  <div *ngIf="isLoading" class="h-[15rem] lg:h-[38rem] flex justify-center items-center py-5">
+  <div
+    *ngIf="isLoading"
+    class="h-[15rem] lg:h-[38rem] flex justify-center items-center py-5"
+  >
     <img src="assets/images/spinner.gif" />
   </div>
 
@@ -7,16 +10,16 @@
     <div class="grid grid-cols-2 p-10 gap-x-6">
       <div
         *ngFor="let picture of pictures; let i = index"
-        class="bg-gray-300 h-[15rem] lg:h-[28rem] rounded-lg overflow-hidden border-4  {{
+        class="relative bg-gray-300 h-[15rem] lg:h-[28rem] rounded-lg overflow-hidden border-4  {{
           i % 2 === 0 ? 'border-red-400' : 'border-blue-400'
         }}"
       >
-        <img
-          *ngIf="picture?.url"
-          (click)="vote(picture?.pid)"
-          class="w-full h-full hover:scale-110 object-cover bg-center cursor-pointer rounded-lg transition-all duration-300"
-          [src]="picture?.url"
-        />
+          <img
+            *ngIf="picture?.url"
+            (click)="vote(picture?.pid)"
+            class="w-full h-full hover:scale-110 object-cover bg-center cursor-pointer rounded-lg transition-all duration-300"
+            [src]="picture?.url"
+          />
       </div>
     </div>
     <div class="flex flex-row w-full justify-center items-center gap-x-4">
@@ -28,7 +31,7 @@
       <div
         class="transition-all duration-300 rounded-xl bg-black px-3 lg:px-6 py-3 lg:py-6 w-[6rem] lg:w-[14rem] text-center text-white font-medium text-2xl"
       >
-       Vs
+        Vs
       </div>
       <div
         class="transition-all duration-300 rounded-xl bg-[#72BBFF] px-6 py-2 lg:py-4 w-[6rem] lg:w-[12rem] text-center text-white font-light text-md"
@@ -40,12 +43,9 @@
 
   <div class="pt-4 flex justify-center items-center px-4">
     <div class="flex flex-col justify-center items-center gap-y-2">
-      <div class="text-sm lg:text-md">How are votes scored?</div>
-      <div class="text-sm lg:text-md indent-16">
-        Image voting has a cooldown on repeating image votes. If the image you
-        selected has a higher score than the other image, will get less points
-        But vice versa, if the image with fewer votes is voted on, it will
-        receive more points.
+      <div class="flex flex-row gap-x-2">
+        <p>Vote System => </p>
+        <div (click)="getRules()" class="text-sm lg:text-md underline text-blue-500  cursor-pointer"> How are votes scored?</div>
       </div>
     </div>
   </div>
