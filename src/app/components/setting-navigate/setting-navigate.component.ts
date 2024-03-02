@@ -17,15 +17,15 @@ export class SettingNavigateComponent implements OnInit {
       label: 'My Personal Profile',
     },
     {
-      path: 'setting/gallery',
+      path: 'gallery',
       label: 'My Gallery',
     },
     {
-      path: 'setting/report',
+      path: 'report',
       label: 'My Report',
     },
     {
-      path: 'setting/votelog',
+      path: 'votelog',
       label: 'Vote Logs',
     },
   ];
@@ -40,18 +40,20 @@ export class SettingNavigateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.auth.currentUserValue) {
-      this.router.navigate(['']);
-    }
+    // if (!this.auth.currentUserValue) {
+    //   this.router.navigate(['']);
+    // }
 
     if (this.auth.currentUserValue != null) {
       this.user = this.auth.currentUserValue;
     }
 
-    this.activeIndex ===
+    this.activeIndex =
       this.paths.findIndex(
         (item) => item.path === this.ar.snapshot.url.toString()
       );
+
+    console.log(this.activeIndex);
   }
 
   public goPath(path: string) {

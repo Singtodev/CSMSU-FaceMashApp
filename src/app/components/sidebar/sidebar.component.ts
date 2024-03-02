@@ -32,7 +32,6 @@ export class SidebarComponent implements OnInit {
   public loadUserPictures(){
     this.fmapi.getMePicture().subscribe((data)=> {
         this.pictures = data;
-        console.log(data);
     })
   }
 

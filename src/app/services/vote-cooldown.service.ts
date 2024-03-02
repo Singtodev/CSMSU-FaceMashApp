@@ -10,7 +10,6 @@ export class VoteCooldownService {
 
   findCooldown(id: number): boolean {
     if (this.cacheMap.has(id)) {
-      console.log('Cooldown active');
       return true;
     } else {
       this.setCooldown(id);

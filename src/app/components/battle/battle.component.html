@@ -7,21 +7,37 @@
   </div>
 
   <div class="" *ngIf="!isLoading">
-    <div class="grid grid-cols-2 p-10 gap-x-6">
+    <div class="grid grid-cols-2 px-10">
+      <div
+        *ngFor="let picture of pictures; let i = index"
+        class="px-4 text-center flex flex-row items-center justify-between gap-x-2 py-2"
+      >
+        <span class="bg-black px-3 text-white rounded-lg">Uploaded by</span>
+        <span class="flex flex-row text-sm items-center gap-x-3"
+          >{{ picture.ref.full_name ?? "" }}
+          <img
+            class="w-5 h-5 object-cover bg-cover rounded-md"
+            [src]="picture.ref.avatar_url ?? ''"
+          />
+        </span>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 px-10 gap-x-6 mb-4">
       <div
         *ngFor="let picture of pictures; let i = index"
         class="relative bg-gray-300 h-[15rem] lg:h-[28rem] rounded-lg overflow-hidden border-4  {{
           i % 2 === 0 ? 'border-red-400' : 'border-blue-400'
         }}"
       >
-          <img
-            *ngIf="picture?.url"
-            (click)="vote(picture?.pid)"
-            class="w-full h-full hover:scale-110 object-cover bg-center cursor-pointer rounded-lg transition-all duration-300"
-            [src]="picture?.url"
-          />
+        <img
+          *ngIf="picture?.url"
+          (click)="vote(picture?.pid)"
+          class="w-full h-full hover:scale-110 object-cover bg-center cursor-pointer rounded-lg transition-all duration-300"
+          [src]="picture?.url"
+        />
       </div>
     </div>
+
     <div class="flex flex-row w-full justify-center items-center gap-x-4">
       <div
         class="transition-all duration-300 rounded-xl bg-[#FF8B72] px-6 py-2 lg:py-4 w-[6rem] lg:w-[12rem] text-center text-white font-light text-md"
@@ -44,8 +60,13 @@
   <div class="pt-4 flex justify-center items-center px-4">
     <div class="flex flex-col justify-center items-center gap-y-2">
       <div class="flex flex-row gap-x-2">
-        <p>Vote System => </p>
-        <div (click)="getRules()" class="text-sm lg:text-md underline text-blue-500  cursor-pointer"> How are votes scored?</div>
+        <p>Vote System =></p>
+        <div
+          (click)="getRules()"
+          class="text-sm lg:text-md underline text-blue-500 cursor-pointer"
+        >
+          How are votes scored?
+        </div>
       </div>
     </div>
   </div>
