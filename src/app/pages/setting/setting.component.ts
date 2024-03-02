@@ -4,6 +4,7 @@ import { AuthService } from '../../services/api/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacemashApiService } from '../../services/api/facemash-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-setting',
@@ -23,13 +24,18 @@ export class SettingComponent implements OnInit {
   public fullName: any = null;
   public file: File | undefined;
 
-  constructor(private auth: AuthService, private fmapi: FacemashApiService) {}
+  constructor(private auth: AuthService, private fmapi: FacemashApiService , private router: Router) {}
 
   ngOnInit(): void {
     this.loadUser();
   }
 
   loadUser() {
+
+    if(this.auth.currentUserValue === null){
+      this.router.navigate(['/login']);
+    }
+
     this.user = this.auth.currentUserValue;
     this.picUrl = this.auth.currentUserValue?.avatar_url;
     this.fullName = this.auth.currentUserValue?.full_name;
