@@ -14,7 +14,7 @@
       >
         <span class="bg-black px-3 text-white rounded-lg">Uploaded by</span>
         <span class="flex flex-row text-sm items-center gap-x-3"
-          >{{ picture.ref.full_name ?? "" }}
+          >{{ picture?.ref?.full_name ?? "" }}
           <img
             class="w-5 h-5 object-cover bg-cover rounded-md"
             [src]="picture.ref.avatar_url ?? ''"
