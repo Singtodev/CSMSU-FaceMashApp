@@ -36,10 +36,46 @@ export class SettingReportComponent {
     return color;
   }
 
-  formatDate(inputDate: string) {
-    const date = new Date(inputDate);
-    const options = { day: '2-digit', month: 'short', year: 'numeric' };
-    return date.toLocaleDateString('en-GB', options as any);
+  convertToLocaleDate(isoDateTimeStr: string) {
+    // Parse the input string into a Date object
+    var dateObj = new Date(isoDateTimeStr);
+
+    // Get the local time zone offset in minutes
+    var localOffset = dateObj.getTimezoneOffset();
+
+    // Convert UTC time to local time
+    var localTime = new Date(dateObj.getTime() + localOffset * 60000);
+
+    // Extract date components
+    var day = localTime.getDate();
+    var monthIndex = localTime.getMonth();
+    var year = localTime.getFullYear();
+
+    // Define month names array
+    var monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    // Format the date part of the output string
+    var formattedDate =
+      day.toString().padStart(2, '0') +
+      ' ' +
+      monthNames[monthIndex] +
+      ' ' +
+      year.toString().padStart(4, '0');
+
+    return formattedDate;
   }
 
   ngOnInit(): void {
@@ -56,7 +92,7 @@ export class SettingReportComponent {
             let color = this.getRandomColor();
             datasets[item.pid] = {
               label: item.name,
-              data: [{ x: this.formatDate(item.date), y: item.rating_score }],
+              data: [{ x: this.convertToLocaleDate(item.date), y: item.rating_score }],
               backgroundColor: color,
               borderColor: color,
               borderWidth: 1,
@@ -71,7 +107,7 @@ export class SettingReportComponent {
             };
           } else {
             datasets[item.pid].data.push({
-              x: this.formatDate(item.date),
+              x: this.convertToLocaleDate(item.date),
               y: item.rating_score,
             });
           }

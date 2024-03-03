@@ -24,18 +24,22 @@
         <div class="flex justify-center">
           <img src="{{ log.url }}" class="w-5 h-5 rounded-md bg-cover" />
         </div>
-        <div class="flex justify-center">+ {{ log.score }}</div>
-        <div class="flex justify-center">{{ formatDate(log.date) }}</div>
+        <div class="flex justify-center text-green-500">
+          <span class="bg-black px-2 rounded-md">+ {{ log.score }}</span>
+        </div>
+        <div class="flex justify-center">
+          {{ convertToLocaleTime(log.date) }}
+        </div>
       </div>
     </div>
     <div class="flex justify-center items-center">
-        <pagination-controls
-          class="mb-2 my-pagination"
-          (pageChange)="pageChanged($event)"
-          [maxSize]="8"
-          [directionLinks]="true"
-          [responsive]="true"
-        ></pagination-controls>
-      </div>
+      <pagination-controls
+        class="mb-2 my-pagination"
+        (pageChange)="pageChanged($event)"
+        [maxSize]="8"
+        [directionLinks]="true"
+        [responsive]="true"
+      ></pagination-controls>
+    </div>
   </div>
 </div>
