@@ -4,7 +4,7 @@
   </div>
   <div class="col-span-10 p-10">
     <p>Setting > My Logs</p>
-    <div class="min-h-[45rem] max-w-[60rem] mx-auto p-2">
+    <div class="min-h-[42rem] max-w-[60rem] mx-auto p-2">
       <div
         *ngFor="
           let log of logs
@@ -29,13 +29,13 @@
       </div>
     </div>
     <div class="flex justify-center items-center">
-      <pagination-controls
-        class="mt-3 my-pagination"
-        (pageChange)="pageChanged($event)"
-        [maxSize]="8"
-        [directionLinks]="true"
-        [responsive]="true"
-      ></pagination-controls>
-    </div>
+        <pagination-controls
+          class="mb-2 my-pagination"
+          (pageChange)="pageChanged($event)"
+          [maxSize]="8"
+          [directionLinks]="true"
+          [responsive]="true"
+        ></pagination-controls>
+      </div>
   </div>
 </div>
