@@ -99,8 +99,23 @@ export class FacemashApiService {
     if (!token) return of(null);
     return this.http.post(url, formData, {
       headers: {
-        Authorization: `Bearer ${this.as.getToken()}`
+        Authorization: `Bearer ${this.as.getToken()}`,
       },
     });
   }
+
+  public getReport(uid: string = ''): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/report/${uid}`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.get(url, this.makeHeader());
+  }
+
+  public getReportVote(uid: string = ''): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/report/votelog/${uid}`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.get(url, this.makeHeader());
+  }
+
 }
