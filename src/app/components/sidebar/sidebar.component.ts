@@ -11,6 +11,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardVoteComponent } from '../cards/card-vote/card-vote.component';
 import { FacemashApiService } from '../../services/api/facemash-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,7 +22,7 @@ import { FacemashApiService } from '../../services/api/facemash-api.service';
   animations: [],
 })
 export class SidebarComponent implements OnInit {
-  constructor(private fmapi: FacemashApiService) {}
+  constructor(private fmapi: FacemashApiService , private router : Router) {}
 
   public pictures: any = [];
 
@@ -40,5 +41,9 @@ export class SidebarComponent implements OnInit {
 
   public sendEventClose() {
     this.closeEvent.emit();
+  }
+
+  public goAdd(){
+    this.router.navigate(['gallery/add'])
   }
 }

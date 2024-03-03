@@ -51,7 +51,11 @@
       <div class="text-md lg:text-2xl">You don't have an images</div>
     </div>
 
-    <div class="flex justify-center items-center mt-10">
+    <div
+      (click)="goAdd()"
+      *ngIf="pictures?.length < 5"
+      class="flex justify-center items-center mt-10"
+    >
       <div
         class="bg-black w-[14rem] flex flex-row gap-x-2 rounded-2xl py-3 flex justify-center items-center cursor-pointer hover:opacity-50"
       >

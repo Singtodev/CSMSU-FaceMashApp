@@ -61,11 +61,13 @@ export class SettingComponent implements OnInit {
     this.fmapi.uploadImage(formData).subscribe(
       (response) => {
         this.picUrl = response.url;
-        this.fmapi
+        if(response.url){
+          this.fmapi
           .updateUser(this.user.uid, response.url, this.fullName)
           .subscribe(async (data) => {
             console.log('Uploaded image!');
           });
+        }
       },
       (error) => {
         // Handle upload error

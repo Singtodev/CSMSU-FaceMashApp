@@ -48,12 +48,14 @@ export class SettingNavigateComponent implements OnInit {
       this.user = this.auth.currentUserValue;
     }
 
-    this.activeIndex =
-      this.paths.findIndex(
-        (item) => item.path === this.ar.snapshot.url.toString()
-      );
+    this.activeIndex = this.paths.findIndex(
+      (item) => item.path === this.ar.snapshot.url.toString()
+    );
 
-    console.log(this.activeIndex);
+    // if(this.ar.snapshot.url.toString() ===)
+    if (this.ar.snapshot.url.toString() === 'gallery,add') {
+      this.activeIndex = 1;
+    }
   }
 
   public goPath(path: string) {

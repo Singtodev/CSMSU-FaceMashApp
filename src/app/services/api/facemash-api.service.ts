@@ -118,4 +118,17 @@ export class FacemashApiService {
     return this.http.get(url, this.makeHeader());
   }
 
+  public createPicture(name: string, picture: string): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/picture`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.post(
+      url,
+      {
+        name,
+        url: picture,
+      },
+      this.makeHeader()
+    );
+  }
 }

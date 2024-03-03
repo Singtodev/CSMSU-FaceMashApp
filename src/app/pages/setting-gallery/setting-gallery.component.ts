@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class SettingGalleryComponent implements OnInit {
   public pictures: any[] | null = [];
-
+  public isLoad = false;
   constructor(private fmapi: FacemashApiService , private auth: AuthService , private router: Router) {}
 
   ngOnInit(): void {
@@ -26,8 +26,16 @@ export class SettingGalleryComponent implements OnInit {
   }
 
   public loadUserPictures() {
+    this.isLoad = true;
     this.fmapi.getMePicture().subscribe((data) => {
       this.pictures = data;
+      this.isLoad = false;
     });
   }
+
+  public goAdd(){
+    this.router.navigate(['gallery/add']);
+  }
+
+
 }
