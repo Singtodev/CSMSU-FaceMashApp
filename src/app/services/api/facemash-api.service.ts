@@ -136,8 +136,23 @@ export class FacemashApiService {
     let url = `${configs.facemashConfig.API_PATH + `/picture/id/${id}`}`;
     return this.http.get(url, this.makeHeader());
   }
+
   public getReportPicById(id: string): Observable<any> {
     let url = `${configs.facemashConfig.API_PATH + `/report/picture/id/${id}`}`;
     return this.http.get(url, this.makeHeader());
+  }
+
+  public updatePassword(oldPassword: string, newPassword: string): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/auth/reset_password`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.post(
+      url,
+      {
+        oldPassword,
+        newPassword,
+      },
+      this.makeHeader()
+    );
   }
 }

@@ -13,17 +13,13 @@ import { UserResponse } from './types/user_model';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
- 
   public isLoading = false;
 
-  constructor(private auth: AuthService, private fmapi: FacemashApiService) {
-  }
+  constructor(private auth: AuthService, private fmapi: FacemashApiService) {}
 
   async ngOnInit() {
     await this.initializeApp();
-    setTimeout(()=> {
-      this.isLoading = false;
-    },3000)
+    this.isLoading = false;
   }
 
   async initializeApp() {

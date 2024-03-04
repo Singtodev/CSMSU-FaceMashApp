@@ -54,7 +54,7 @@ export class SettingGalleryAddComponent implements OnInit {
               confirmButtonText: 'Ok',
               confirmButtonColor: '#000',
             }).then(()=> {
-              this.router.navigate(['gallery'])
+              this.router.navigate(['/setting/gallery'])
             })
           },
           (error) => {

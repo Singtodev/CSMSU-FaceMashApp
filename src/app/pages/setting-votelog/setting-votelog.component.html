@@ -1,45 +1,38 @@
-<div class="grid grid-cols-12 h-screen">
-  <div class="col-span-2">
-    <app-setting-navigate />
-  </div>
-  <div class="col-span-10 p-10">
-    <p>Setting > My Logs</p>
-    <div class="min-h-[42rem] max-w-[60rem] mx-auto p-2">
-      <div
-        *ngFor="
-          let log of logs
-            | paginate
-              : {
-                  itemsPerPage: 15,
-                  currentPage: currentPage,
-                  totalItems: totalLogs
-                };
-          let i = index
-        "
-        [class.bg-gray-300]="i % 2 == 0"
-        [class.bg-white]="i % 2 != 0"
-        class="grid grid-cols-4 w-full p-2"
-      >
-        <div class="flex justify-start">You vote {{ log.name }}</div>
-        <div class="flex justify-center">
-          <img src="{{ log.url }}" class="w-5 h-5 rounded-md bg-cover" />
-        </div>
-        <div class="flex justify-center text-green-500">
-          <span class="bg-black px-2 rounded-md">+ {{ log.score }}</span>
-        </div>
-        <div class="flex justify-center">
-          {{ convertToLocaleTime(log.date) }}
-        </div>
-      </div>
+<p>Setting > My Logs</p>
+<div class="min-h-[42rem] max-w-[60rem] mx-auto p-2">
+  <div
+    *ngFor="
+      let log of logs
+        | paginate
+          : {
+              itemsPerPage: 15,
+              currentPage: currentPage,
+              totalItems: totalLogs
+            };
+      let i = index
+    "
+    [class.bg-gray-300]="i % 2 == 0"
+    [class.bg-white]="i % 2 != 0"
+    class="grid grid-cols-4 w-full p-2"
+  >
+    <div class="flex justify-start">You vote {{ log.name }}</div>
+    <div class="flex justify-center">
+      <img src="{{ log.url }}" class="w-5 h-5 rounded-md bg-cover" />
     </div>
-    <div class="flex justify-center items-center">
-      <pagination-controls
-        class="mb-2 my-pagination"
-        (pageChange)="pageChanged($event)"
-        [maxSize]="8"
-        [directionLinks]="true"
-        [responsive]="true"
-      ></pagination-controls>
+    <div class="flex justify-center text-green-500">
+      <span class="bg-black px-2 rounded-md">+ {{ log.score }}</span>
+    </div>
+    <div class="flex justify-center">
+      {{ convertToLocaleTime(log.date) }}
     </div>
   </div>
+</div>
+<div class="flex justify-center items-center">
+  <pagination-controls
+    class="mb-2 my-pagination"
+    (pageChange)="pageChanged($event)"
+    [maxSize]="8"
+    [directionLinks]="true"
+    [responsive]="true"
+  ></pagination-controls>
 </div>

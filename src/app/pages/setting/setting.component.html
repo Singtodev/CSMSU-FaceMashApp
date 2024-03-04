@@ -1,67 +1,77 @@
-<div class="relative grid grid-cols-12 h-screen">
-  <div class="col-span-2">
-    <app-setting-navigate />
+<p>Setting > My Personal Profile</p>
+<div class="h-[45rem] p-2">
+  <div
+    class="max-w-[45rem] mx-auto h-[4rem] my-6 rounded-md bg-gray-100 p-2 items-center flex gap-x-3"
+  >
+    <div
+      (click)="setStep(i)"
+      *ngFor="let menu of menus; let i = index"
+      class="px-6 rounded-xl py-2 bg-black text-white inline-block hover:bg-opacity-50 cursor-pointer"
+      [class.bg-opacity-50]="step !== i"
+    >
+      {{ menu }}
+    </div>
   </div>
-  <div class="col-span-10 p-10">
-    <p>Setting > My Personal Profile</p>
-    <div class="h-[45rem] p-2">
-      <div class="relative w-full flex flex-col justify-center items-center">
-        <div
-          class="relative w-[10rem] h-[10rem] bg-gray-300 rounded-full flex justify-center"
+
+  <div class="relative w-full flex flex-col justify-center items-center">
+    <div
+      class="relative w-[10rem] h-[10rem] bg-gray-300 rounded-full flex justify-center"
+    >
+      <div
+        (click)="selectFile()"
+        class="bg-black w-[4rem] absolute bottom-2 flex flex-row gap-x-2 rounded-2xl py-3 flex justify-center items-center cursor-pointer hover:opacity-50"
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 33 33"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <div
-            (click)="selectFile()"
-            class="bg-black w-[4rem] absolute bottom-2 flex flex-row gap-x-2 rounded-2xl py-3 flex justify-center items-center cursor-pointer hover:opacity-50"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 33 33"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g clip-path="url(#clip0_104_1209)">
-                <path
-                  d="M19.0781 24.75H13.9219C13.0646 24.75 12.375 24.0604 12.375 23.2032V12.375H6.72246C5.5752 12.375 5.00156 10.9893 5.81367 10.1772L15.617 0.367432C16.1004 -0.115967 16.8932 -0.115967 17.3766 0.367432L27.1863 10.1772C27.9984 10.9893 27.4248 12.375 26.2775 12.375H20.625V23.2032C20.625 24.0604 19.9354 24.75 19.0781 24.75ZM33 24.2344V31.4532C33 32.3104 32.3104 33 31.4531 33H1.54688C0.689648 33 0 32.3104 0 31.4532V24.2344C0 23.3772 0.689648 22.6875 1.54688 22.6875H10.3125V23.2032C10.3125 25.1948 11.9303 26.8125 13.9219 26.8125H19.0781C21.0697 26.8125 22.6875 25.1948 22.6875 23.2032V22.6875H31.4531C32.3104 22.6875 33 23.3772 33 24.2344ZM25.0078 29.9063C25.0078 29.1973 24.4277 28.6172 23.7188 28.6172C23.0098 28.6172 22.4297 29.1973 22.4297 29.9063C22.4297 30.6153 23.0098 31.1954 23.7188 31.1954C24.4277 31.1954 25.0078 30.6153 25.0078 29.9063ZM29.1328 29.9063C29.1328 29.1973 28.5527 28.6172 27.8438 28.6172C27.1348 28.6172 26.5547 29.1973 26.5547 29.9063C26.5547 30.6153 27.1348 31.1954 27.8438 31.1954C28.5527 31.1954 29.1328 30.6153 29.1328 29.9063Z"
-                  fill="white"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_104_1209">
-                  <rect width="33" height="33" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-          </div>
-          <img
-            class="w-full h-full object-cover bg-center bg-cover rounded-full"
-            [src]="
-              picUrl ?? 'https://www.computerhope.com/jargon/g/guest-user.png'
-            "
-          />
-        </div>
-        <div class="text-3xl">{{ fullName ?? "" }}</div>
+          <g clip-path="url(#clip0_104_1209)">
+            <path
+              d="M19.0781 24.75H13.9219C13.0646 24.75 12.375 24.0604 12.375 23.2032V12.375H6.72246C5.5752 12.375 5.00156 10.9893 5.81367 10.1772L15.617 0.367432C16.1004 -0.115967 16.8932 -0.115967 17.3766 0.367432L27.1863 10.1772C27.9984 10.9893 27.4248 12.375 26.2775 12.375H20.625V23.2032C20.625 24.0604 19.9354 24.75 19.0781 24.75ZM33 24.2344V31.4532C33 32.3104 32.3104 33 31.4531 33H1.54688C0.689648 33 0 32.3104 0 31.4532V24.2344C0 23.3772 0.689648 22.6875 1.54688 22.6875H10.3125V23.2032C10.3125 25.1948 11.9303 26.8125 13.9219 26.8125H19.0781C21.0697 26.8125 22.6875 25.1948 22.6875 23.2032V22.6875H31.4531C32.3104 22.6875 33 23.3772 33 24.2344ZM25.0078 29.9063C25.0078 29.1973 24.4277 28.6172 23.7188 28.6172C23.0098 28.6172 22.4297 29.1973 22.4297 29.9063C22.4297 30.6153 23.0098 31.1954 23.7188 31.1954C24.4277 31.1954 25.0078 30.6153 25.0078 29.9063ZM29.1328 29.9063C29.1328 29.1973 28.5527 28.6172 27.8438 28.6172C27.1348 28.6172 26.5547 29.1973 26.5547 29.9063C26.5547 30.6153 27.1348 31.1954 27.8438 31.1954C28.5527 31.1954 29.1328 30.6153 29.1328 29.9063Z"
+              fill="white"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_104_1209">
+              <rect width="33" height="33" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
       </div>
-      <div class="grid grid-cols-1 max-w-[45rem] mx-auto gap-x-10 gap-y-6 pt-6">
-        <div class="flex flex-col">
-          <span>Email</span>
-          <input
-            type="email"
-            class="bg-gray-300 py-2 px-4 rounded-md"
-            [value]="user?.email ?? ''"
-            disabled
-          />
-        </div>
-        <div class="flex flex-col">
-          <span>Full Name</span>
-          <input
-            [(ngModel)]="fullName"
-            type="text"
-            class="bg-gray-300 py-2 px-4 rounded-md"
-            [value]="user?.full_name ?? '-'"
-          />
-        </div>
-        <!-- <div class="flex flex-col">
+      <img
+        class="w-full h-full object-cover bg-center bg-cover rounded-full"
+        [src]="picUrl ?? 'https://www.computerhope.com/jargon/g/guest-user.png'"
+      />
+    </div>
+    <div class="text-3xl">{{ fullName ?? "" }}</div>
+  </div>
+
+  <div
+    *ngIf="step == 0"
+    class="grid grid-cols-1 max-w-[45rem] mx-auto gap-x-10 gap-y-6 pt-6"
+  >
+    <div class="flex flex-col">
+      <span>Email</span>
+      <input
+        type="email"
+        class="bg-gray-300 py-2 px-4 rounded-md"
+        [value]="user?.email ?? ''"
+        disabled
+      />
+    </div>
+    <div class="flex flex-col">
+      <span>Full Name</span>
+      <input
+        [(ngModel)]="fullName"
+        type="text"
+        class="bg-gray-300 py-2 px-4 rounded-md"
+        [value]="user?.full_name ?? '-'"
+      />
+    </div>
+    <!-- <div class="flex flex-col">
           <span>Password</span>
           <input
             type="text"
@@ -77,14 +87,53 @@
             [value]="user?.password ?? ''"
           />
         </div> -->
-        <div class="w-full flex justify-center items-center">
-          <div
-            (click)="update()"
-            class="bg-black inline-block py-2 px-6 rounded-lg text-white cursor-pointer hover:bg-opacity-60"
-          >
-            Update
-          </div>
-        </div>
+    <div class="w-full flex justify-center items-center">
+      <div
+        (click)="update()"
+        class="bg-black inline-block py-2 px-6 rounded-lg text-white cursor-pointer hover:bg-opacity-60"
+      >
+        Update
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="step == 1"
+    class="grid grid-cols-1 max-w-[45rem] mx-auto gap-x-10 gap-y-6 pt-6"
+  >
+    <div class="flex flex-col">
+      <span>Old Password</span>
+      <input
+      [(ngModel)]="pwdOld"
+        type="password"
+        class="bg-gray-300 py-2 px-4 rounded-md"
+        [value]=""
+      />
+    </div>
+    <div class="flex flex-col">
+      <span>New Password</span>
+      <input
+        [(ngModel)]="pwdNew"
+        type="password"
+        class="bg-gray-300 py-2 px-4 rounded-md"
+        [value]=""
+      />
+    </div>
+    <div class="flex flex-col">
+      <span>Confirm Password</span>
+      <input
+        [(ngModel)]="pwdConfirm"
+        type="password"
+        class="bg-gray-300 py-2 px-4 rounded-md"
+        [value]=""
+      />
+    </div>
+    <div class="w-full flex justify-center items-center">
+      <div
+        (click)="updatePassword()"
+        class="bg-black inline-block py-2 px-6 rounded-lg text-white cursor-pointer hover:bg-opacity-60"
+      >
+        Update
       </div>
     </div>
   </div>

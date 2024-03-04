@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacemashApiService } from '../../services/api/facemash-api.service';
 import { Router } from '@angular/router';
 
+import Toastify from 'toastify-js';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-setting',
   standalone: true,
@@ -23,16 +26,30 @@ export class SettingComponent implements OnInit {
   public picUrl: any = null;
   public fullName: any = null;
   public file: File | undefined;
+  public step: number = 0;
 
-  constructor(private auth: AuthService, private fmapi: FacemashApiService , private router: Router) {}
+  public pwdNew: string = '';
+  public pwdOld: string = '';
+  public pwdConfirm: string = '';
+
+  public menus = ['Profile', 'Change Password'];
+
+  constructor(
+    private auth: AuthService,
+    private fmapi: FacemashApiService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadUser();
   }
 
-  loadUser() {
+  setStep(step: number) {
+    this.step = step;
+  }
 
-    if(this.auth.currentUserValue === null){
+  loadUser() {
+    if (this.auth.currentUserValue === null) {
       this.router.navigate(['/login']);
     }
 
@@ -61,12 +78,20 @@ export class SettingComponent implements OnInit {
     this.fmapi.uploadImage(formData).subscribe(
       (response) => {
         this.picUrl = response.url;
-        if(response.url){
+        if (response.url) {
           this.fmapi
-          .updateUser(this.user.uid, response.url, this.fullName)
-          .subscribe(async (data) => {
-            console.log('Uploaded image!');
-          });
+            .updateUser(this.user.uid, response.url, this.fullName)
+            .subscribe(async (data) => {
+              Swal.fire({
+                title: 'Upload Avatar Success!',
+                text: 'System need to reload page',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#000',
+              }).then(() => {
+                window.location.reload();
+              });
+            });
         }
       },
       (error) => {
@@ -83,5 +108,90 @@ export class SettingComponent implements OnInit {
       .subscribe(async (data) => {
         window.location.reload();
       });
+  }
+
+  updatePassword() {
+    if (
+      this.pwdNew.length == 0 ||
+      this.pwdOld.length == 0 ||
+      this.pwdConfirm.length == 0
+    ) {
+      return Toastify({
+        text: 'Field is empty',
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: 'top',
+        position: 'right',
+        stopOnFocus: true,
+        style: {
+          background: 'linear-gradient(to right,  #3D6CC9 , #0037FF)',
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    if (this.pwdNew === this.pwdOld) {
+      return Toastify({
+        text: 'New password not equal old pwd!',
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: 'top',
+        position: 'right',
+        stopOnFocus: true,
+        style: {
+          background: 'linear-gradient(to right,  #3D6CC9 , #0037FF)',
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    if (this.pwdNew !== this.pwdConfirm) {
+      return Toastify({
+        text: 'Please check your input password is not match',
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: 'top',
+        position: 'right',
+        stopOnFocus: true,
+        style: {
+          background: 'linear-gradient(to right,  #3D6CC9 , #0037FF)',
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    this.fmapi.updatePassword(this.pwdOld, this.pwdNew).subscribe(
+      (data: any) => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Password Change!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#000',
+        }).then(() => {
+          window.location.reload();
+        });
+      },
+      (error: any) => {
+        if (error.error.msg) {
+          return Toastify({
+            text: error.error.msg,
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: 'top',
+            position: 'right',
+            stopOnFocus: true,
+            style: {
+              background: 'linear-gradient(to right,  #C93D3D , #FFFB00)',
+            },
+            onClick: function () {},
+          }).showToast();
+        }
+      }
+    );
   }
 }

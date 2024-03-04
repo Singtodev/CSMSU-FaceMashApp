@@ -13,19 +13,19 @@ import { AuthService } from '../../services/api/auth.service';
 export class SettingNavigateComponent implements OnInit {
   public paths = [
     {
-      path: 'setting',
+      path: '/setting',
       label: 'My Personal Profile',
     },
     {
-      path: 'gallery',
+      path: '/setting/gallery',
       label: 'My Gallery',
     },
     {
-      path: 'report',
+      path: '/setting/report',
       label: 'My Report',
     },
     {
-      path: 'votelog',
+      path: '/setting/votelog',
       label: 'Vote Logs',
     },
   ];
@@ -40,26 +40,22 @@ export class SettingNavigateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // if (!this.auth.currentUserValue) {
-    //   this.router.navigate(['']);
-    // }
-
     if (this.auth.currentUserValue != null) {
       this.user = this.auth.currentUserValue;
     }
 
     this.activeIndex = this.paths.findIndex(
-      (item) => item.path === this.ar.snapshot.url.toString()
+      (item) => item.path === this.router.url
     );
 
-    // if(this.ar.snapshot.url.toString() ===)
-    if (this.ar.snapshot.url.toString() === 'gallery,add') {
+    if (this.router.url === '/setting/gallery/add') {
       this.activeIndex = 1;
     }
   }
 
   public goPath(path: string) {
     this.router.navigate([path]);
+    this.activeIndex = this.paths.findIndex((item) => item.path === path);
   }
 
   public goBack() {

@@ -10,6 +10,7 @@ import { SettingReportComponent } from './pages/setting-report/setting-report.co
 import { SettingVotelogComponent } from './pages/setting-votelog/setting-votelog.component';
 import { SettingGalleryAddComponent } from './pages/setting-gallery-add/setting-gallery-add.component';
 import { PictureDetailComponent } from './pages/picture-detail/picture-detail.component';
+import { LayoutSettingComponent } from './layouts/layout-setting/layout-setting.component';
 
 export const routes: Routes = [
   {
@@ -29,25 +30,35 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
   },
+  // {
+  //   path: 'setting',
+  //   component: SettingComponent,
+  // },
   {
     path: 'setting',
-    component: SettingComponent,
-  },
-  {
-    path: 'gallery',
-    component: SettingGalleryComponent,
-  },
-  {
-    path: 'gallery/add',
-    component: SettingGalleryAddComponent,
-  },
-  {
-    path: 'report',
-    component: SettingReportComponent,
-  },
-  {
-    path: 'votelog',
-    component: SettingVotelogComponent,
+    component: LayoutSettingComponent,
+    children: [
+      {
+        path: '',
+        component: SettingComponent,
+      },
+      {
+        path: 'gallery',
+        component: SettingGalleryComponent,
+      },
+      {
+        path: 'gallery/add',
+        component: SettingGalleryAddComponent,
+      },
+      {
+        path: 'report',
+        component: SettingReportComponent,
+      },
+      {
+        path: 'votelog',
+        component: SettingVotelogComponent,
+      },
+    ],
   },
   {
     path: 'toprank',

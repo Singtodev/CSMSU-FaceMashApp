@@ -1,48 +1,41 @@
-<div class="grid grid-cols-12 h-screen">
-  <div class="col-span-2">
-    <app-setting-navigate />
+<p>Setting > My Gallery</p>
+<div class="min-h-[45rem] max-w-[60rem] mx-auto p-2">
+
+  <div
+    *ngIf="isLoad"
+    class="h-[15rem] lg:h-[38rem] flex justify-center items-center py-5"
+  >
+    <img src="assets/images/spinner.gif" />
   </div>
-  <div class="col-span-10 p-10">
-    <p>Setting > My Gallery</p>
-    <div class="min-h-[45rem] max-w-[60rem] mx-auto p-2">
 
-      <div
-        *ngIf="isLoad"
-        class="h-[15rem] lg:h-[38rem] flex justify-center items-center py-5"
-      >
-        <img src="assets/images/spinner.gif" />
-      </div>
-
-      <div
-        *ngIf="!isLoad && pictures && pictures.length == 0"
-        class="h-[35rem] flex items-center justify-center"
-      >
-        <div class="text-md lg:text-2xl">You don't have an images</div>
-      </div>
-
-      <div
-        *ngIf="!isLoad && pictures && pictures.length > 0"
-        class="h-[35rem] grid grid-cols-3 gap-5 mt-14"
-      >
-        <app-card-vote
-          *ngFor="let item of pictures"
-          [score]="item.vote_count"
-          [image]="item.url"
-          [rank]="item.rank"
-          [elo]="item.rating_score"
-          [id]="item.pid"
-        />
-      </div>
-
-      <div
-      (click)="goAdd()"
-      *ngIf="!isLoad && pictures && pictures.length < 5"
-       class="flex justify-center items-center">
-          <span class="py-2 px-3 bg-black text-white rounded-lg hover:bg-opacity-50 transition-all duration-300 cursor-pointer">Upload Image</span>
-      </div>
-
-
-
-    </div>
+  <div
+    *ngIf="!isLoad && pictures && pictures.length == 0"
+    class="h-[35rem] flex items-center justify-center"
+  >
+    <div class="text-md lg:text-2xl">You don't have an images</div>
   </div>
+
+  <div
+    *ngIf="!isLoad && pictures && pictures.length > 0"
+    class="h-[35rem] grid grid-cols-3 gap-5 mt-14"
+  >
+    <app-card-vote
+      *ngFor="let item of pictures"
+      [score]="item.vote_count"
+      [image]="item.url"
+      [rank]="item.rank"
+      [elo]="item.rating_score"
+      [id]="item.pid"
+    />
+  </div>
+
+  <div
+  (click)="goAdd()"
+  *ngIf="!isLoad && pictures && pictures.length < 5"
+   class="flex justify-center items-center">
+      <span class="py-2 px-3 bg-black text-white rounded-lg hover:bg-opacity-50 transition-all duration-300 cursor-pointer">Upload Image</span>
+  </div>
+
+
+
 </div>

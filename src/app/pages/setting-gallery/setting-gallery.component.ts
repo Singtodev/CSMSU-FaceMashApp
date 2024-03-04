@@ -34,7 +34,7 @@ export class SettingGalleryComponent implements OnInit {
   }
 
   public goAdd(){
-    this.router.navigate(['gallery/add']);
+    this.router.navigate(['/setting/gallery/add']);
   }
 
 

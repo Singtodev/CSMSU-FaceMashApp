@@ -148,7 +148,7 @@ export class PictureDetailComponent implements OnInit {
 
     if (length == null || length === 0) {
       // Return a default value or handle the case where there is no data
-      return null;
+      return 0;
     }
 
     let lastIndex = length - 1;
