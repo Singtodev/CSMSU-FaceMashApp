@@ -9,6 +9,7 @@ import { SettingGalleryComponent } from './pages/setting-gallery/setting-gallery
 import { SettingReportComponent } from './pages/setting-report/setting-report.component';
 import { SettingVotelogComponent } from './pages/setting-votelog/setting-votelog.component';
 import { SettingGalleryAddComponent } from './pages/setting-gallery-add/setting-gallery-add.component';
+import { PictureDetailComponent } from './pages/picture-detail/picture-detail.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'picture-detail/:id',
+    component: PictureDetailComponent,
   },
   {
     path: 'register',

@@ -131,4 +131,13 @@ export class FacemashApiService {
       this.makeHeader()
     );
   }
+
+  public getPicById(id: string): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/picture/id/${id}`}`;
+    return this.http.get(url, this.makeHeader());
+  }
+  public getReportPicById(id: string): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/report/picture/id/${id}`}`;
+    return this.http.get(url, this.makeHeader());
+  }
 }

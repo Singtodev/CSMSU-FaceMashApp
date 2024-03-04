@@ -1,0 +1,127 @@
+<div class="flex justify-center items-center">
+  <div class="w-[60rem] lg:w-[88rem] mx-auto">
+    <app-navbar (sendEvent)="goBack()" navigateArrow="left" />
+    <div class="mt-4 max-w-[60rem] mx-auto">
+      <div class="grid grid-cols-2">
+        <div class="grid grid-rows-2 gap-x-3">
+          <div class="relative">
+            <div class="text-4xl py-4">{{ picture?.name }}</div>
+            <span class="flex flex-col gap-y-2">
+              Uploaded by {{ picture?.created_by }}
+              <img
+                class="w-12 h-12 rounded-xl bg-cover object-cover bg-center bg-no-repeat"
+                src="{{ picture?.avatar_url }}"
+              />
+            </span>
+          </div>
+          <div class="flex flex-col justify-end items-center">
+            <div class="w-full grid grid-cols-3 gap-x-3 px-10">
+              <div
+                class="bg-[#858585] flex flex-row gap-x-3 justify-center items-center text-white py-4 rounded-xl px-10 w-full"
+              >
+                <svg
+                  width="20"
+                  height="16"
+                  viewBox="0 0 17 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.45313 7.4375H0.796875C0.355273 7.4375 0 7.79277 0 8.23438V16.2031C0 16.6447 0.355273 17 0.796875 17H3.45313C3.89473 17 4.25 16.6447 4.25 16.2031V8.23438C4.25 7.79277 3.89473 7.4375 3.45313 7.4375ZM2.125 15.6719C1.6834 15.6719 1.32813 15.3166 1.32813 14.875C1.32813 14.4334 1.6834 14.0781 2.125 14.0781C2.5666 14.0781 2.92188 14.4334 2.92188 14.875C2.92188 15.3166 2.5666 15.6719 2.125 15.6719ZM12.75 2.70605C12.75 4.11387 11.8867 4.9041 11.6443 5.84375H15.0211C16.1301 5.84375 16.9934 6.76348 17 7.77285C17.0033 8.36719 16.751 9.00801 16.3559 9.40644L16.3525 9.40977C16.6779 10.1834 16.6248 11.2691 16.0438 12.0494C16.3326 12.9094 16.0404 13.9652 15.4992 14.533C15.642 15.1174 15.5723 15.6154 15.2967 16.0139C14.616 16.9867 12.9359 17 11.5148 17H11.4219C9.81816 17 8.50664 16.4156 7.45078 15.9475C6.91953 15.7117 6.22891 15.4195 5.70098 15.4096C5.48516 15.4062 5.30918 15.227 5.30918 15.0111V7.9123C5.30918 7.80605 5.35234 7.70312 5.42871 7.63008C6.74356 6.33184 7.30801 4.95391 8.38711 3.8748C8.87852 3.3834 9.05781 2.63965 9.23047 1.91914C9.37988 1.30488 9.68867 0 10.3594 0C11.1563 0 12.75 0.265625 12.75 2.70605Z"
+                    fill="#FFF"
+                  />
+                </svg>
+                {{ picture?.vote_count }}
+              </div>
+              <div
+                class="bg-[#858585] flex flex-row gap-x-3 justify-center items-center text-white py-4 rounded-xl px-3 w-full"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_161_294)">
+                    <path
+                      d="M6.75 9H5.25C4.975 9 4.75 9.225 4.75 9.5V15.5C4.75 15.775 4.975 16 5.25 16H6.75C7.025 16 7.25 15.775 7.25 15.5V9.5C7.25 9.225 7.025 9 6.75 9ZM2.75 12H1.25C0.975 12 0.75 12.225 0.75 12.5V15.5C0.75 15.775 0.975 16 1.25 16H2.75C3.025 16 3.25 15.775 3.25 15.5V12.5C3.25 12.225 3.025 12 2.75 12ZM10.75 6H9.25C8.975 6 8.75 6.225 8.75 6.5V15.5C8.75 15.775 8.975 16 9.25 16H10.75C11.025 16 11.25 15.775 11.25 15.5V6.5C11.25 6.225 11.025 6 10.75 6ZM14.75 3H13.25C12.975 3 12.75 3.225 12.75 3.5V15.5C12.75 15.775 12.975 16 13.25 16H14.75C15.025 16 15.25 15.775 15.25 15.5V3.5C15.25 3.225 15.025 3 14.75 3ZM18.75 0H17.25C16.975 0 16.75 0.225 16.75 0.5V15.5C16.75 15.775 16.975 16 17.25 16H18.75C19.025 16 19.25 15.775 19.25 15.5V0.5C19.25 0.225 19.025 0 18.75 0Z"
+                      fill="#fff"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_161_294">
+                      <rect width="20" height="16" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                {{ picture?.rating_score }}
+              </div>
+              <div
+                class="bg-[#858585] flex flex-row gap-x-3 justify-center items-center text-white py-4 rounded-xl px-3 w-full"
+              >
+                <svg
+                  fill="#fff"
+                  width="20"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6,1H3V7H6Zm8,2H11V7h3ZM10,4H7V7h3ZM0,8.3V9.7H3V15H6V9.7H7V12h3V9.7h1V13h3V9.7h2V8.3Z"
+                  />
+                </svg>
+                <ng-container
+                  *ngIf="getDifferenceRank()! !== null; else loading"
+                >
+                  <span *ngIf="getDifferenceRank()! === 0"> NC </span>
+                  <span
+                    *ngIf="
+                      getDifferenceRank()! < 0 && getDifferenceRank() !== null
+                    "
+                    class="text-green-500"
+                  >
+                    + {{ getPlus(getDifferenceRank()) }}
+                  </span>
+                  <span
+                    *ngIf="
+                      getDifferenceRank()! > 0 && getDifferenceRank() !== null
+                    "
+                    class="text-red-500"
+                  >
+                    - {{ getDifferenceRank() }}
+                  </span>
+                </ng-container>
+                <ng-template #loading>
+                  <span>Loading...</span>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <img
+            class="w-[28rem] h-[32rem] rounded-xl object-cover bg-center bg-no-repeat"
+            src="{{ picture?.url }}"
+          />
+        </div>
+      </div>
+      <div class="h-[35rem] py-4 px-2">
+        <p class="text-2xl text-center">Daily Rank History (7D)</p>
+        <app-report-chart *ngIf="!loadingChart" [datasets]="datasets" />
+      </div>
+      <p class="py-4 text-2xl">Uploaded more {{ picture?.created_by }}</p>
+      <div class="grid grid-cols-4 py-1">
+        <app-card-vote
+          *ngFor="let item of others"
+          [score]="item.vote_count"
+          [image]="item.url"
+          [rank]="item.rank"
+          [elo]="item.rating_score"
+          [id]="item.pid"
+        />
+      </div>
+    </div>
+  </div>
+</div>
