@@ -37,5 +37,8 @@ export class SettingGalleryComponent implements OnInit {
     this.router.navigate(['/setting/gallery/add']);
   }
 
+  public goEdit(pid: string){
+    this.router.navigate(['/setting/gallery/edit/' + pid])
+  }
 
 }

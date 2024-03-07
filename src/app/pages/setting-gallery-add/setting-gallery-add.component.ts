@@ -49,7 +49,7 @@ export class SettingGalleryAddComponent implements OnInit {
           (data) => {
             Swal.fire({
               title: 'Added!',
-              text: 'you got new picture!',
+              text: 'You got new picture!',
               icon: 'success',
               confirmButtonText: 'Ok',
               confirmButtonColor: '#000',

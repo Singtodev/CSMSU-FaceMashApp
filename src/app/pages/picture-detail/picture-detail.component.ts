@@ -31,6 +31,7 @@ export class PictureDetailComponent implements OnInit {
   public id: any = null;
   public datasets: any[] = [];
   public loadingChart: boolean = false;
+  public yesterDayRank: any = 0;
 
   ngOnInit() {
     this.loadId();
@@ -147,21 +148,24 @@ export class PictureDetailComponent implements OnInit {
     let length = this.datasets[0]?.data?.length;
 
     if (length == null || length === 0) {
+      this.yesterDayRank = this.picture.rank
       // Return a default value or handle the case where there is no data
       return 0;
     }
 
     let lastIndex = length - 1;
     let todayRank = this.picture?.rank;
-    let yesterdayRank = this.datasets[0]?.data[lastIndex]?.y;
+    this.yesterDayRank = this.datasets[0]?.data[lastIndex]?.y;
+    
 
-    if (todayRank == null || yesterdayRank == null) {
+    if (todayRank == null || this.yesterDayRank == null) {
       // Return a default value or handle the case where either today's or yesterday's rank is nullish
-      return null;
+      this.yesterDayRank = this.picture.rank
+      return 0;
     }
 
     // Perform the calculation
-    return todayRank - yesterdayRank;
+    return todayRank - this.yesterDayRank;
   }
 
   getPlus(num: any) {

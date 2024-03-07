@@ -48,7 +48,7 @@ export class SettingNavigateComponent implements OnInit {
       (item) => item.path === this.router.url
     );
 
-    if (this.router.url === '/setting/gallery/add') {
+    if (this.router.url.startsWith('/setting/gallery/') ) {
       this.activeIndex = 1;
     }
   }

@@ -9,6 +9,7 @@ import { VoteCooldownService } from '../../services/vote-cooldown.service';
 
 import Toastify from 'toastify-js';
 import Swal from 'sweetalert2';
+import { EloratingrankService } from '../../services/eloratingrank.service';
 
 @Component({
   selector: 'app-battle',
@@ -22,7 +23,8 @@ export class BattleComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private fmapi: FacemashApiService,
-    private votecd: VoteCooldownService
+    private votecd: VoteCooldownService,
+    private elorating: EloratingrankService
   ) {}
 
   public pictures: any[] = [];
@@ -66,21 +68,38 @@ export class BattleComponent implements OnInit {
   }
 
   public getRules() {
+    const actualScorePlayerA = 1;
+    const kFactor = 32;
+
+    const [newAWin, newBLose, calAwin] = this.elorating.updateRatings(
+      this.pictures[0].rating_score,
+      this.pictures[1].rating_score,
+      actualScorePlayerA,
+      kFactor
+    );
+
+    const [newBWin, newALose , calBwin] = this.elorating.updateRatings(
+      this.pictures[1].rating_score,
+      this.pictures[0].rating_score,
+      actualScorePlayerA,
+      kFactor
+    );
+
     Swal.fire({
       title: 'Vote System !',
       html: `
       <div class="flex flex-col text-sm lg:text-md indent-6">
-          <div class="pb-6 text-left"> There's a cooldown period on repeating image votes. If the image you selected has a higher score than the other image, it will receive fewer points. Conversely, if the image with fewer votes is voted on, it will receive more points..</div>
-          <p class="text-left pb-2">If your vote for  <span class="text-blue-300">${
-            this.getSortPlayer()[0].name
-          }</span> has a score of  ${
-        this.getSortPlayer()[0].rating_score
-      } , the reward score will be randomly between 1 and 5 </p>
-          <p class="text-left">If your vote for <span class="text-blue-300">${
-            this.getSortPlayer()[1].name
-          }</span> has a score of  ${
-        this.getSortPlayer()[1].rating_score
-      }, the reward score will be randomly between 5 and 20.</p>
+          <div class="pb-6 text-left"> This voting system uses the elorating voting equation.</div>
+          <div class="pb-2 ">Rn=Ro+K×(S−E)</div>
+          <div>KFactor 32</div>
+          <p class="text-left pb-2">    
+          If your vote for  <span class="text-blue-300">${this.pictures[0].name}</span> has a score of  ${this.pictures[0].rating_score} , the reward score will be 
+             <span class="text-green-300">${newAWin}</span>  and ${this.pictures[1].name} will be <span class="text-red-300">${newBLose}</span>
+          </p>
+          <p class="py-2">${calAwin}</p>
+          <p class="text-left">If your vote for <span class="text-blue-300">${this.pictures[1].name}</span> has a score of  ${this.pictures[1].rating_score}, the reward score will be 
+          <span class="text-green-300">${newBWin} </span> and ${this.pictures[0].name} will be <span class="text-red-300">${newALose}</span></p>
+          <p class="py-2">${calBwin}</p>
       </div>
     `,
       showClass: {
@@ -126,7 +145,7 @@ export class BattleComponent implements OnInit {
       this.fmapi.vote(uid, id, opponentId).subscribe((data) => {
         if (data.affectedRows === 1) {
           Toastify({
-            text: `Vote for ${data.win[0].name} + ${data.score}  !`,
+            text: `Vote for ${data.win[0].name}!`,
             duration: 3000,
             newWindow: true,
             close: true,

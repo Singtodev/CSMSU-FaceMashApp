@@ -1,6 +1,5 @@
 <p>Setting > My Gallery</p>
 <div class="min-h-[45rem] max-w-[60rem] mx-auto p-2">
-
   <div
     *ngIf="isLoad"
     class="h-[15rem] lg:h-[38rem] flex justify-center items-center py-5"
@@ -19,23 +18,26 @@
     *ngIf="!isLoad && pictures && pictures.length > 0"
     class="h-[35rem] grid grid-cols-3 gap-5 mt-14"
   >
-    <app-card-vote
-      *ngFor="let item of pictures"
-      [score]="item.vote_count"
-      [image]="item.url"
-      [rank]="item.rank"
-      [elo]="item.rating_score"
-      [id]="item.pid"
-    />
+    <div *ngFor="let item of pictures" class="flex flex-col">
+      <app-card-vote
+        [score]="item.vote_count"
+        [image]="item.url"
+        [rank]="item.rank"
+        [elo]="item.rating_score"
+        [id]="item.pid"
+      />
+      <div class="cursor-pointer" (click)="goEdit(item.pid)">Edit Picture</div>
+    </div>
   </div>
 
   <div
-  (click)="goAdd()"
-  *ngIf="!isLoad && pictures && pictures.length < 5"
-   class="flex justify-center items-center">
-      <span class="py-2 px-3 bg-black text-white rounded-lg hover:bg-opacity-50 transition-all duration-300 cursor-pointer">Upload Image</span>
+    (click)="goAdd()"
+    *ngIf="!isLoad && pictures && pictures.length < 5"
+    class="flex justify-center items-center"
+  >
+    <span
+      class="py-2 px-3 bg-black text-white rounded-lg hover:bg-opacity-50 transition-all duration-300 cursor-pointer"
+      >Upload Image</span
+    >
   </div>
-
-
-
 </div>

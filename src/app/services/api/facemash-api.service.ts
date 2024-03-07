@@ -142,7 +142,10 @@ export class FacemashApiService {
     return this.http.get(url, this.makeHeader());
   }
 
-  public updatePassword(oldPassword: string, newPassword: string): Observable<any> {
+  public updatePassword(
+    oldPassword: string,
+    newPassword: string
+  ): Observable<any> {
     let url = `${configs.facemashConfig.API_PATH + `/auth/reset_password`}`;
     const token = this.as.getToken();
     if (!token) return of(null);
@@ -154,5 +157,21 @@ export class FacemashApiService {
       },
       this.makeHeader()
     );
+  }
+
+  public getDateRank(): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/report/toprank/date`}`;
+    return this.http.get(url);
+  }
+
+  public updatePicture(
+    name: string,
+    url: string,
+    pid: string
+  ): Observable<any> {
+    let urlRequest = `${configs.facemashConfig.API_PATH + `/picture/${pid}`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.put(urlRequest, { name, url }, this.makeHeader());
   }
 }

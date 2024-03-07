@@ -11,6 +11,7 @@ import { SettingVotelogComponent } from './pages/setting-votelog/setting-votelog
 import { SettingGalleryAddComponent } from './pages/setting-gallery-add/setting-gallery-add.component';
 import { PictureDetailComponent } from './pages/picture-detail/picture-detail.component';
 import { LayoutSettingComponent } from './layouts/layout-setting/layout-setting.component';
+import { SettingGalleryEditComponent } from './pages/setting-gallery-edit/setting-gallery-edit.component';
 
 export const routes: Routes = [
   {
@@ -49,6 +50,10 @@ export const routes: Routes = [
       {
         path: 'gallery/add',
         component: SettingGalleryAddComponent,
+      },
+      {
+        path: 'gallery/edit/:id',
+        component: SettingGalleryEditComponent,
       },
       {
         path: 'report',

@@ -13,6 +13,16 @@
                 src="{{ picture?.avatar_url }}"
               />
             </span>
+
+            <div class="flex flex-col pt-4">
+              <p>Rank Yesterday</p>
+              <p *ngIf="yesterDayRank != null">{{ yesterDayRank || 0 }}</p>
+            </div>
+
+            <div class="flex flex-col pt-4">
+              <p>Rank Today</p>
+              <p>{{ picture?.rank }}</p>
+            </div>
           </div>
           <div class="flex flex-col justify-end items-center">
             <div class="w-full grid grid-cols-3 gap-x-3 px-10">
@@ -55,7 +65,30 @@
                     </clipPath>
                   </defs>
                 </svg>
-                {{ picture?.rating_score }}
+                <ng-container
+                *ngIf="getDifferenceRank()! !== null; else loading"
+              >
+                <span *ngIf="getDifferenceRank()! === 0"> NC </span>
+                <span
+                  *ngIf="
+                    getDifferenceRank()! < 0 && getDifferenceRank() !== null
+                  "
+                  class="text-green-500"
+                >
+                  + {{ getPlus(getDifferenceRank()) }}
+                </span>
+                <span
+                  *ngIf="
+                    getDifferenceRank()! > 0 && getDifferenceRank() !== null
+                  "
+                  class="text-red-500"
+                >
+                  - {{ getDifferenceRank() }}
+                </span>
+              </ng-container>
+              <ng-template #loading>
+                <span>Loading...</span>
+              </ng-template>
               </div>
               <div
                 class="bg-[#858585] flex flex-row gap-x-3 justify-center items-center text-white py-4 rounded-xl px-3 w-full"
@@ -71,30 +104,7 @@
                     d="M6,1H3V7H6Zm8,2H11V7h3ZM10,4H7V7h3ZM0,8.3V9.7H3V15H6V9.7H7V12h3V9.7h1V13h3V9.7h2V8.3Z"
                   />
                 </svg>
-                <ng-container
-                  *ngIf="getDifferenceRank()! !== null; else loading"
-                >
-                  <span *ngIf="getDifferenceRank()! === 0"> NC </span>
-                  <span
-                    *ngIf="
-                      getDifferenceRank()! < 0 && getDifferenceRank() !== null
-                    "
-                    class="text-green-500"
-                  >
-                    + {{ getPlus(getDifferenceRank()) }}
-                  </span>
-                  <span
-                    *ngIf="
-                      getDifferenceRank()! > 0 && getDifferenceRank() !== null
-                    "
-                    class="text-red-500"
-                  >
-                    - {{ getDifferenceRank() }}
-                  </span>
-                </ng-container>
-                <ng-template #loading>
-                  <span>Loading...</span>
-                </ng-template>
+                {{ picture?.rating_score }}
               </div>
             </div>
           </div>
@@ -107,7 +117,7 @@
           />
         </div>
       </div>
-      <div class="h-[35rem] py-4 px-2">
+      <div class="h-[35rem] py-10 px-2">
         <p class="text-2xl text-center">Daily Rank History (7D)</p>
         <app-report-chart *ngIf="!loadingChart" [datasets]="datasets" />
       </div>
