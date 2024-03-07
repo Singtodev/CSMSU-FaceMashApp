@@ -1,11 +1,13 @@
 const prodConfig = {
   API_PATH: 'https://csmsu-facemashapp-api.onrender.com',
-  DELAY: 5,
+  DELAY: 20,
 };
 
 const devConfig = {
   API_PATH: 'http://localhost:3000',
-  DELAY: 5,
+  DELAY: 20,
 };
 
-export default prodConfig;
+const isDevMode = false;
+
+export default isDevMode ? devConfig : prodConfig;

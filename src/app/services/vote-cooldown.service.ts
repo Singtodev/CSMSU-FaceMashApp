@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import configs from '../configs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,8 @@ export class VoteCooldownService {
   }
 
   private setCooldown(id: number): void {
-    const cooldownEndTime = new Date().getTime() + 15 * 1000; // Set cooldown for 1 minute
+    const cooldownEndTime =
+      new Date().getTime() + configs.facemashConfig.DELAY * 1000;
     this.cacheMap.set(id, cooldownEndTime);
   }
 
