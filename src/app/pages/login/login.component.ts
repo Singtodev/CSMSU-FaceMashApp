@@ -5,6 +5,7 @@ import { AuthService } from '../../services/api/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { VoteCooldownService } from '../../services/vote-cooldown.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fmapi: FacemashApiService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private votecd: VoteCooldownService
   ) {}
 
   async ngOnInit() {
@@ -54,6 +56,15 @@ export class LoginComponent implements OnInit {
           this.fmapi.getMe().subscribe((user) => {
             this.auth.setUser(user);
           });
+
+          try{
+            this.fmapi.getVoteDelay().subscribe((data) => {
+              let cd = data[0];
+              this.votecd.setCooldownTime(cd.app_vote_delay);
+            })
+          }catch(err){
+            
+          }
           // alert notifycation
           Swal.fire({
             title: 'Login Successful!',

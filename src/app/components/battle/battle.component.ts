@@ -34,6 +34,10 @@ export class BattleComponent implements OnInit {
     this.loadRandomPictures();
   }
 
+  cooldown() {
+    return this.votecd.getCooldownTime()
+  }
+
   loadRandomPictures(): void {
     // remove expire cooldown
     this.isLoading = true;

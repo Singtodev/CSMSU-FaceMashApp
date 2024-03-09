@@ -12,6 +12,9 @@ import { SettingGalleryAddComponent } from './pages/setting-gallery-add/setting-
 import { PictureDetailComponent } from './pages/picture-detail/picture-detail.component';
 import { LayoutSettingComponent } from './layouts/layout-setting/layout-setting.component';
 import { SettingGalleryEditComponent } from './pages/setting-gallery-edit/setting-gallery-edit.component';
+import { SettingAdminUserComponent } from './pages/setting-admin-user/setting-admin-user.component';
+import { SettingAdminAppComponent } from './pages/setting-admin-app/setting-admin-app.component';
+import { SettingAdminUserIdComponent } from './pages/setting-admin-user-id/setting-admin-user-id.component';
 
 export const routes: Routes = [
   {
@@ -63,6 +66,18 @@ export const routes: Routes = [
         path: 'votelog',
         component: SettingVotelogComponent,
       },
+      {
+        path: 'admin/users',
+        component: SettingAdminUserComponent
+      },
+      {
+        path: 'admin/users/:id',
+        component: SettingAdminUserIdComponent
+      },
+      {
+        path: 'admin/app',
+        component: SettingAdminAppComponent
+      }
     ],
   },
   {

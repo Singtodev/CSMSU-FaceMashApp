@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/api/auth.service';
@@ -30,13 +30,26 @@ export class SettingNavigateComponent implements OnInit {
     },
   ];
 
+  public adminPaths: any[] = [
+    {
+      path: '/setting/admin/users',
+      label: 'Manage Users',
+    },
+    {
+      path: '/setting/admin/app',
+      label: 'Setting App',
+    }
+  ]
+
   public activeIndex = 0;
+  public activeIndexAdmin = 0;
   public user: any = null;
 
   constructor(
     private ar: ActivatedRoute,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -48,14 +61,26 @@ export class SettingNavigateComponent implements OnInit {
       (item) => item.path === this.router.url
     );
 
+    this.activeIndexAdmin = this.adminPaths.findIndex(
+      (item) => item.path === this.router.url
+    )
+    
     if (this.router.url.startsWith('/setting/gallery/') ) {
       this.activeIndex = 1;
     }
+
+    if (this.router.url.startsWith('/setting/admin/users/') ) {
+      this.activeIndexAdmin = 0;
+    }
+
   }
 
   public goPath(path: string) {
-    this.router.navigate([path]);
     this.activeIndex = this.paths.findIndex((item) => item.path === path);
+    this.activeIndexAdmin = this.adminPaths.findIndex(
+      (item) => item.path === path
+    )
+    this.router.navigate([path]);
   }
 
   public goBack() {

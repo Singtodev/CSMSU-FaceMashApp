@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/api/auth.service';
 import { FacemashApiService } from './services/api/facemash-api.service';
 import { UserResponse } from './types/user_model';
+import { VoteCooldownService } from './services/vote-cooldown.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { UserResponse } from './types/user_model';
 export class AppComponent implements OnInit {
   public isLoading = false;
 
-  constructor(private auth: AuthService, private fmapi: FacemashApiService) {}
+  constructor(private auth: AuthService, private fmapi: FacemashApiService , private votecd: VoteCooldownService) {}
 
   async ngOnInit() {
     await this.initializeApp();
@@ -35,6 +36,13 @@ export class AppComponent implements OnInit {
           const user = await this.fmapi.getMe().toPromise();
           this.auth.setUser(user);
         }
+
+        this.fmapi.getVoteDelay().subscribe((data) => {
+          let cd = data[0];
+          this.votecd.setCooldownTime(cd.app_vote_delay);
+        })
+
+        
       } catch (error) {
         // Handle error appropriately, e.g., show error message to the user
         console.error('Error occurred during initialization:', error);

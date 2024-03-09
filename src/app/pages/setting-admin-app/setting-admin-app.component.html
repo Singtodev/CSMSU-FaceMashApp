@@ -1,0 +1,12 @@
+<p>Setting > Admin > App</p>
+<div class="min-h-[42rem] max-w-[60rem] mx-auto p-2 flex items-center justify-center">
+
+    <div class="flex flex-col justify-center items-center gap-y-6">
+        <div class="text-3xl">Set Votecooldown</div>
+        <div class="text-xl">Current {{cooldown()}} s</div>
+        <input *ngIf="cooldown() != null " [(ngModel)]="cd" class="border border-black my-4 px-2 rounded-md" value="{{cooldown()}}" type="number" min="1" max="10000" />
+        <button (click)="changeCooldown()" class="bg-black text-white px-4 rounded"> Submit</button>
+    </div>
+
+
+</div>

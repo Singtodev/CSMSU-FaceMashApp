@@ -6,7 +6,7 @@ import configs from '../configs';
 })
 export class VoteCooldownService {
   private cacheMap = new Map<number, number>(); // Map<ID, cooldownEndTime>
-
+  private cooldownTime: number = 0;
   constructor() {}
 
   findCooldown(id: number): boolean {
@@ -18,9 +18,17 @@ export class VoteCooldownService {
     }
   }
 
+  public setCooldownTime = (time: number) => {
+    this.cooldownTime = time
+  }
+
+  public getCooldownTime = () => {
+    return this.cooldownTime
+  }
+
   private setCooldown(id: number): void {
     const cooldownEndTime =
-      new Date().getTime() + configs.facemashConfig.DELAY * 1000;
+      new Date().getTime() + this.getCooldownTime() * 1000;
     this.cacheMap.set(id, cooldownEndTime);
   }
 

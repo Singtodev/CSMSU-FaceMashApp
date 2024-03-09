@@ -68,6 +68,15 @@
           How are votes scored?
         </div>
       </div>
+      <div class="flex flex-row gap-x-2">
+        <p>Vote cooldown Time =></p>
+        <div
+          (click)="getRules()"
+          class="text-sm lg:text-md text-center"
+        >
+          {{cooldown()}} S
+        </div>
+      </div>
     </div>
   </div>
 

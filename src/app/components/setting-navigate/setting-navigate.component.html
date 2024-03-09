@@ -1,25 +1,28 @@
 <div
-  class="relative w-full h-screen flex flex-col justify-between overflow-hidden bg-[#2A2A2A] p-10"
+  class="relative w-full h-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#2A2A2A] p-10"
 >
   <div>
-    <div   (click)="goBack()"class="relative w-full flex justify-center items-center">
-      <div
-        class="bg-white rotate-180 flex justify-center items-center rounded-md cursor-pointer"
-      >
-        <svg
-          class="w-10 h-10 lg:w-12 lg:h-12 p-1"
-          viewBox="0 0 13 21"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+    <div class="flex flex-row">
+      <div   (click)="goBack()"class="relative w-full flex justify-center items-center">
+        <div
+          class="bg-white rotate-180 flex justify-center items-center rounded-md cursor-pointer"
         >
-          <path
-            d="M11.5985 11.1972L3.70102 19.1666C3.31914 19.5521 2.70164 19.5521 2.32383 19.1666L1.40164 18.2355C1.01977 17.85 1.01977 17.2306 1.40164 16.8451L7.65789 10.5L1.40164 4.15483C1.02383 3.76929 1.02383 3.14995 1.40164 2.7644L2.32383 1.83335C2.7057 1.4478 3.3232 1.4478 3.70102 1.83335L11.5985 9.80269C11.9804 10.1882 11.9804 10.8117 11.5985 11.1931V11.1972Z"
-            fill="black"
-          />
-        </svg>
+          <svg
+            class="w-10 h-10 lg:w-12 lg:h-12 p-1"
+            viewBox="0 0 13 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5985 11.1972L3.70102 19.1666C3.31914 19.5521 2.70164 19.5521 2.32383 19.1666L1.40164 18.2355C1.01977 17.85 1.01977 17.2306 1.40164 16.8451L7.65789 10.5L1.40164 4.15483C1.02383 3.76929 1.02383 3.14995 1.40164 2.7644L2.32383 1.83335C2.7057 1.4478 3.3232 1.4478 3.70102 1.83335L11.5985 9.80269C11.9804 10.1882 11.9804 10.8117 11.5985 11.1931V11.1972Z"
+              fill="black"
+            />
+          </svg>
+        </div>
       </div>
     </div>
-    <div class="relative flex flex-col gap-y-3 text-white pt-10">
+    <div class="relative flex flex-col gap-y-3 text-white pt-10 pb-4 border-b-2 border-gray-300">
+      <p class=" px-4 text-sm  py-2 rounded-md text-center">User Menu</p>
       <div
         (click)="goPath(path.path)"
         *ngFor="let path of paths; let i = index"
@@ -30,10 +33,22 @@
         {{ path.label }}
       </div>
     </div>
+    <div *ngIf="user && user.role === 1" class="relative flex flex-col gap-y-3 text-white pt-10 border-top ">
+      <p class=" px-4 text-sm  py-2 rounded-md text-center">Admin Menu</p>
+      <div
+        (click)="goPath(path.path)"
+        *ngFor="let path of adminPaths; let i = index"
+        class="hover:bg-[#424040] transition-all duration-300 cursor-pointer py-2 px-4 rounded-lg {{
+          activeIndexAdmin == i ? 'bg-[#424040]' : ''
+        }}"
+      >
+        {{ path.label }}
+      </div>
+    </div>
   </div>
-  <div class="w-full h-[2rem]">
+  <div class="w-full h-[4rem]">
     <div class="flex justify-center items-center">
-      <div class="relative flex flex-row gap-x-3 items-center" *ngIf="user">
+      <div class="relative flex flex-row gap-x-3 items-center flex-col" *ngIf="user">
         <span class="text-white whitespace-nowrap py-2">{{ user?.full_name ?? "" }}</span>
         <div
           class="bg-gray-300 w-[45px] h-[45px] object-cover bg-cover rounded-ful rounded-full"

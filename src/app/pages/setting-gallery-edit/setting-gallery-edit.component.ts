@@ -19,6 +19,8 @@ export class SettingGalleryEditComponent {
   public formData: any;
   public pid: any;
 
+  public pictureRef: any;
+
   constructor(
     private fmapi: FacemashApiService,
     private auth: AuthService,
@@ -42,6 +44,7 @@ export class SettingGalleryEditComponent {
     this.fmapi.getPicById(this.pid).subscribe(
       (data) => {
         this.picUrl = data.picture.url;
+        this.pictureRef = data.picture.url;
         this.name = data.picture.name;
       },
       (error: any) => {
@@ -69,6 +72,15 @@ export class SettingGalleryEditComponent {
 
   update(): void {
     if (this.formData) {
+
+      try{
+        this.fmapi.removePicture(this.pictureRef).subscribe((data)=> {
+          console.log(data);
+        })
+      }catch(err){
+        console.log(err);
+      }
+
       this.fmapi.uploadImage(this.formData).subscribe(
         (response) => {
           this.picUrl = response.url;

@@ -75,6 +75,14 @@ export class SettingComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', file);
 
+    try{
+      this.fmapi.removePicture(this.user.avatar_url).subscribe((data)=> {
+        console.log(data);
+      })
+    }catch(err){
+      console.log(err);
+    }
+    
     this.fmapi.uploadImage(formData).subscribe(
       (response) => {
         this.picUrl = response.url;

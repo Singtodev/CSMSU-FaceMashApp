@@ -36,6 +36,13 @@ export class FacemashApiService {
     return this.http.get(url, this.makeHeader());
   }
 
+  public getUserById(uid: string): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + '/users/id/'+ uid}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.get(url, this.makeHeader());
+  }
+
   public getMePicture(): Observable<any> {
     let url = `${configs.facemashConfig.API_PATH + `/picture/me`}`;
     const token = this.as.getToken();
@@ -174,4 +181,30 @@ export class FacemashApiService {
     if (!token) return of(null);
     return this.http.put(urlRequest, { name, url }, this.makeHeader());
   }
+
+  public removePicture(
+    url: string,
+  ): Observable<any> {
+    let urlRequest = `${configs.facemashConfig.API_PATH + `/firebase/delete`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.post(urlRequest, { url }, this.makeHeader());
+  }
+
+  public getVoteDelay(
+  ): Observable<any> {
+    let urlRequest = `${configs.facemashConfig.API_PATH + `/cooldown/${configs.facemashConfig.APP_ID}`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.get(urlRequest,this.makeHeader());
+  }
+
+  public updateVoteDelay(
+    time: number
+    ): Observable<any> {
+      let urlRequest = `${configs.facemashConfig.API_PATH + `/cooldown/${configs.facemashConfig.APP_ID}`}`;
+      const token = this.as.getToken();
+      if (!token) return of(null);
+      return this.http.put(urlRequest,{app_vote_delay: time},this.makeHeader());
+    }
 }

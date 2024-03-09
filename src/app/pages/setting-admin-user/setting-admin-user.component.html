@@ -1,0 +1,37 @@
+<p>Setting > Admin > Users</p>
+<div class="min-h-[42rem] max-w-[60rem] mx-auto p-2">
+  <div
+    *ngFor="
+      let user of users
+        | paginate
+          : {
+              itemsPerPage: 18,
+              currentPage: currentPage,
+              totalItems: users?.length
+            };
+      let i = index
+    "
+    [class.bg-gray-300]="i % 2 == 0"
+    [class.bg-white]="i % 2 != 0"
+    class="grid grid-cols-3 w-full p-2"
+  >
+    <div class="flex justify-start">
+        <img
+        class="w-5 h-5 object-cover bg-cover rounded-md"
+        [src]="user.avatar_url ?? ''"
+      />
+    </div>
+    <div>{{user.full_name}}</div>
+    <div class="flex flex-row justify-end"><button (click)="goUserDetail(user.uid)" class="text-right bg-black text-white inline-block px-2 rounded-md">view</button></div>
+  </div>
+</div>
+<div class="flex justify-center items-center">
+    <pagination-controls
+      class="mb-2 my-pagination"
+      (pageChange)="pageChanged($event)"
+      [maxSize]="8"
+      [directionLinks]="true"
+      [responsive]="true"
+    ></pagination-controls>
+  </div>
+  
