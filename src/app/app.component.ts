@@ -16,7 +16,11 @@ import { VoteCooldownService } from './services/vote-cooldown.service';
 export class AppComponent implements OnInit {
   public isLoading = false;
 
-  constructor(private auth: AuthService, private fmapi: FacemashApiService , private votecd: VoteCooldownService) {}
+  constructor(
+    private auth: AuthService,
+    private fmapi: FacemashApiService,
+    private votecd: VoteCooldownService
+  ) {}
 
   async ngOnInit() {
     await this.initializeApp();
@@ -25,6 +29,14 @@ export class AppComponent implements OnInit {
 
   async initializeApp() {
     this.isLoading = true;
+
+    try {
+      this.fmapi.getVoteDelay().subscribe((data) => {
+        let cd = data[0];
+        this.votecd.setCooldownTime(cd.app_vote_delay);
+      });
+    } catch (err) {}
+
     if (this.auth.getToken()) {
       try {
         const refreshed = await this.fmapi.refreshToken().toPromise();
@@ -36,13 +48,6 @@ export class AppComponent implements OnInit {
           const user = await this.fmapi.getMe().toPromise();
           this.auth.setUser(user);
         }
-
-        this.fmapi.getVoteDelay().subscribe((data) => {
-          let cd = data[0];
-          this.votecd.setCooldownTime(cd.app_vote_delay);
-        })
-
-        
       } catch (error) {
         // Handle error appropriately, e.g., show error message to the user
         console.error('Error occurred during initialization:', error);
