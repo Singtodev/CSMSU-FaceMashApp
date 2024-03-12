@@ -26,10 +26,22 @@
         [elo]="item.rating_score"
         [id]="item.pid"
       />
-      <div class="cursor-pointer" (click)="goEdit(item.pid)">Edit Picture</div>
+      <div class="flex flex-row justify-between max-w-[6rem] gap-x-1">
+        <div
+          class="cursor-pointer px-2 bg-black text-white rounded-md"
+          (click)="goEdit(item.pid)"
+        >
+          Edit
+        </div>
+        <div
+          class="cursor-pointer px-2 bg-red-500 text-white rounded-md"
+          (click)="goDelete(item.pid)"
+        >
+          Delete
+        </div>
+      </div>
     </div>
   </div>
-
   <div
     (click)="goAdd()"
     *ngIf="!isLoad && pictures && pictures.length < 5"

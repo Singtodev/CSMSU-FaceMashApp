@@ -37,7 +37,7 @@ export class FacemashApiService {
   }
 
   public getUserById(uid: string): Observable<any> {
-    let url = `${configs.facemashConfig.API_PATH + '/users/id/'+ uid}`;
+    let url = `${configs.facemashConfig.API_PATH + '/users/id/' + uid}`;
     const token = this.as.getToken();
     if (!token) return of(null);
     return this.http.get(url, this.makeHeader());
@@ -182,27 +182,39 @@ export class FacemashApiService {
     return this.http.put(urlRequest, { name, url }, this.makeHeader());
   }
 
-  public removePicture(
-    url: string,
-  ): Observable<any> {
+  public removePicture(url: string): Observable<any> {
     let urlRequest = `${configs.facemashConfig.API_PATH + `/firebase/delete`}`;
     const token = this.as.getToken();
     if (!token) return of(null);
     return this.http.post(urlRequest, { url }, this.makeHeader());
   }
 
-  public getVoteDelay(
-  ): Observable<any> {
-    let urlRequest = `${configs.facemashConfig.API_PATH + `/cooldown/${configs.facemashConfig.APP_ID}`}`;
+  public getVoteDelay(): Observable<any> {
+    let urlRequest = `${
+      configs.facemashConfig.API_PATH +
+      `/cooldown/${configs.facemashConfig.APP_ID}`
+    }`;
     return this.http.get(urlRequest);
   }
 
-  public updateVoteDelay(
-    time: number
-    ): Observable<any> {
-      let urlRequest = `${configs.facemashConfig.API_PATH + `/cooldown/${configs.facemashConfig.APP_ID}`}`;
-      const token = this.as.getToken();
-      if (!token) return of(null);
-      return this.http.put(urlRequest,{app_vote_delay: time},this.makeHeader());
-    }
+  public updateVoteDelay(time: number): Observable<any> {
+    let urlRequest = `${
+      configs.facemashConfig.API_PATH +
+      `/cooldown/${configs.facemashConfig.APP_ID}`
+    }`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.put(
+      urlRequest,
+      { app_vote_delay: time },
+      this.makeHeader()
+    );
+  }
+
+  public deletePicture(pid: string): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/picture/${pid}`}`;
+    const token = this.as.getToken();
+    if (!token) return of(null);
+    return this.http.delete(url, this.makeHeader());
+  }
 }

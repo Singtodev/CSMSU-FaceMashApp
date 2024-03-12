@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/api/auth.service';
 
 @Component({
   selector: 'app-card-vote',
@@ -16,9 +17,11 @@ export class CardVoteComponent {
   @Input() elo: string = '';
   @Input() id: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private auth: AuthService) {}
 
   goDetail() {
-    this.router.navigate(['picture-detail/' + this.id]);
+    if (this.auth.currentUserValue != null) {
+      this.router.navigate(['picture-detail/' + this.id]);
+    }
   }
 }

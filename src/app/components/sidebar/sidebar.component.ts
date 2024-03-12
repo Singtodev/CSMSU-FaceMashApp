@@ -44,6 +44,6 @@ export class SidebarComponent implements OnInit {
   }
 
   public goAdd(){
-    this.router.navigate(['gallery/add'])
+    this.router.navigate(['setting/gallery'])
   }
 }
