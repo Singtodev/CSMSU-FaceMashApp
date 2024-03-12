@@ -46,7 +46,12 @@ export class SettingAdminAppComponent {
         confirmButtonText: 'Ok',
         confirmButtonColor: '#000',
       }).then(() => {
-        window.location.reload();
+        try {
+          this.fmapi.getVoteDelay().subscribe((data) => {
+            let cd = data[0];
+            this.votecd.setCooldownTime(cd.app_vote_delay);
+          });
+        } catch (err) {}
       });
     });
   }
