@@ -165,7 +165,7 @@ export class PictureDetailComponent implements OnInit {
     }
 
     // Perform the calculation
-    return todayRank - this.yesterDayRank;
+    return this.yesterDayRank - todayRank;
 
     // 1 - 2 = -1
   }

@@ -25,24 +25,24 @@
             </div>
 
             <div class="flex flex-col pt-4">
-              <p>Difference Rank</p>
+              <p>Diff Rank</p>
               <ng-container *ngIf="getDifferenceRank()! !== null; else loading">
-                <span *ngIf="getDifferenceRank()! === 0"> No Data </span>
-                <span
-                  *ngIf="
-                    getDifferenceRank()! < 0 && getDifferenceRank() !== null
-                  "
-                  class="text-green-500"
-                >
-                  + {{ getPlus(getDifferenceRank()) }}
-                </span>
+                <span *ngIf="getDifferenceRank()! === 0"> No Change </span>
                 <span
                   *ngIf="
                     getDifferenceRank()! > 0 && getDifferenceRank() !== null
                   "
+                  class="text-green-500"
+                >
+                  + {{ getDifferenceRank() }}
+                </span>
+                <span
+                  *ngIf="
+                    getDifferenceRank()! < 0 && getDifferenceRank() !== null
+                  "
                   class="text-red-500"
                 >
-                  - {{ getDifferenceRank() }}
+                  {{ getDifferenceRank() }}
                 </span>
               </ng-container>
               <ng-template #loading>
