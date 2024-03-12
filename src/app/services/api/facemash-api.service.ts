@@ -194,9 +194,7 @@ export class FacemashApiService {
   public getVoteDelay(
   ): Observable<any> {
     let urlRequest = `${configs.facemashConfig.API_PATH + `/cooldown/${configs.facemashConfig.APP_ID}`}`;
-    const token = this.as.getToken();
-    if (!token) return of(null);
-    return this.http.get(urlRequest,this.makeHeader());
+    return this.http.get(urlRequest);
   }
 
   public updateVoteDelay(
