@@ -17,11 +17,8 @@ export class NavbarComponent implements OnInit {
 
 
   @Output() sendEvent = new EventEmitter<any>();
-
   public user: UserResponse | any = null;
-
   constructor(private auth: AuthService  , private router : Router) {}
-
 
   @Input() navigateArrow = ''
   @Input() hideNavigate:boolean = false;

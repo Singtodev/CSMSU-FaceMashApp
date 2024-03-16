@@ -16,6 +16,9 @@ export class ToprankComponent implements OnInit {
   public pictures: any[] = [];
   public dateRanks: any[] = [];
   public topTen: any[] = [];
+  public step = 0;
+
+  public menus = ['Top10', 'All Picture'];
 
   constructor(private fmapi: FacemashApiService, private location: Location) {}
   ngOnInit(): void {
@@ -65,10 +68,20 @@ export class ToprankComponent implements OnInit {
     return formattedDate;
   }
 
+  setStep(step: number) {
+    this.step = step;
+    if (this.step == 0) {
+      this.topTen =
+        this.pictures.length > 10 ? this.pictures.slice(0, 10) : this.pictures;
+    } else {
+      this.topTen = this.pictures;
+    }
+  }
+
   loadPictures() {
     this.fmapi.getAllPictures().subscribe((data) => {
       this.pictures = data;
-      this.topTen = data.length > 10 ? data.slice(0,10) : data;
+      this.topTen = data.length > 10 ? data.slice(0, 10) : data;
     });
   }
 

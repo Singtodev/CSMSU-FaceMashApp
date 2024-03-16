@@ -2,7 +2,7 @@
   class="w-full h-[3rem] bg-white flex justify-between items-center py-10 px-[2rem] lg:px-0 transition-all duration-300"
 >
   <div>
-    <div (click)="validEvent()"  *ngIf="!hideNavigate">
+    <div (click)="validEvent()" *ngIf="!hideNavigate">
       <div
         [ngClass]="{
           'rotate-180': navigateArrow === 'left',
@@ -26,23 +26,41 @@
   </div>
 
   <div>
-    <div *ngIf="!user" class="flex flex-row gap-x-3">
-      <div
-        (click)="goLogin()"
-        class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1"
-      >
-        Login
+    <div
+      *ngIf="!user"
+      class="flex flex-row items-center justify-center gap-x-6"
+    >
+      <div class="flex flex-row items-center gap-x-2">
+        <img
+          class="w-[45px] h-[45px] object-cover bg-center bg-cover rounded-full"
+          [src]="
+            user?.avatar_url ??
+            'https://www.computerhope.com/jargon/g/guest-user.png'
+          "
+        />
+        <p>Gust Account</p>
       </div>
-      <div
-        (click)="goRegister()"
-        class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1"
-      >
-        Sign Up
+      <div *ngIf="!user" class="flex flex-row gap-x-3">
+        <div
+          (click)="goLogin()"
+          class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1"
+        >
+          Login
+        </div>
+        <div
+          (click)="goRegister()"
+          class="bg-black px-5 hover:bg-opacity-65 cursor-pointer trasition-all duration-300 text-white rounded-md p-1"
+        >
+          Sign Up
+        </div>
       </div>
     </div>
 
-    <div class="relative flex flex-row gap-x-3 items-center " *ngIf="user">
-      <span>{{user?.full_name ?? ''}}</span>
+    <div
+      *ngIf="user"
+      class="relative flex flex-row gap-x-3 items-center"
+    >
+      <span>{{ user?.full_name ?? "" }}</span>
       <div
         class="bg-gray-300 w-[45px] h-[45px] object-cover bg-cover rounded-ful rounded-full"
       >
@@ -56,7 +74,7 @@
       </div>
 
       <div
-        class="absolute -bottom-[5rem] flex flex-col gap-y-3  w-[7rem] right-0"
+        class="absolute -bottom-[5rem] flex flex-col gap-y-3 w-[7rem] right-0"
       >
         <p
           (click)="goSetting()"

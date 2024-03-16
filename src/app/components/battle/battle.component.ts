@@ -35,7 +35,11 @@ export class BattleComponent implements OnInit {
   }
 
   cooldown() {
-    return this.votecd.getCooldownTime()
+    return this.votecd.getCooldownTime();
+  }
+
+  isLoggedIn() {
+    return this.auth.currentUserValue != null;
   }
 
   loadRandomPictures(): void {
@@ -82,7 +86,7 @@ export class BattleComponent implements OnInit {
       kFactor
     );
 
-    const [newBWin, newALose , calBwin] = this.elorating.updateRatings(
+    const [newBWin, newALose, calBwin] = this.elorating.updateRatings(
       this.pictures[1].rating_score,
       this.pictures[0].rating_score,
       actualScorePlayerA,
@@ -123,11 +127,59 @@ export class BattleComponent implements OnInit {
     }).then(() => {});
   }
 
+  handleVote(id: any) {
+    if (this.isLoggedIn()) {
+      this.vote(id);
+    } else {
+      this.voteGuest(id);
+    }
+  }
+
+  public voteGuest(id: any) {
+    let opponentId: any = this.pictures.filter((item) => item.pid != id)[0].pid;
+    this.votecd.removeExpiredCooldowns();
+    if (this.votecd.findCooldown(id)) {
+      let time = this.votecd.getRemainingCooldown(id);
+      return Toastify({
+        text: 'This picture can be voted on ' + time + 's',
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: 'top',
+        position: 'right',
+        stopOnFocus: true,
+        style: {
+          background: 'linear-gradient(to right,  #C93D3D , #FFF700)',
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    this.fmapi.voteGuest(id ,opponentId).subscribe((data) => {
+      if (data.affectedRows === 1) {
+        Toastify({
+          text: `Guest Vote for ${data.win[0].name}!`,
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: 'top',
+          position: 'right',
+          stopOnFocus: true,
+          style: {
+            background: 'linear-gradient(to right, #00b09b, #96c93d)',
+          },
+          onClick: function () {},
+        }).showToast();
+      }
+    });
+
+    return this.loadRandomPictures();
+  }
+
   public vote(id: any) {
     let opponentId: any = this.pictures.filter((item) => item.pid != id)[0].pid;
     if (this.auth.currentUserValue != null) {
       this.votecd.removeExpiredCooldowns();
-
       if (this.votecd.findCooldown(id)) {
         let time = this.votecd.getRemainingCooldown(id);
         return Toastify({
@@ -149,7 +201,7 @@ export class BattleComponent implements OnInit {
       this.fmapi.vote(uid, id, opponentId).subscribe((data) => {
         if (data.affectedRows === 1) {
           Toastify({
-            text: `Vote for ${data.win[0].name}!`,
+            text: `${this.auth.currentUserValue?.full_name } Vote for ${data.win[0].name}!`,
             duration: 3000,
             newWindow: true,
             close: true,
@@ -163,6 +215,7 @@ export class BattleComponent implements OnInit {
           }).showToast();
         }
       });
+
       return this.loadRandomPictures();
     }
     return Toastify({

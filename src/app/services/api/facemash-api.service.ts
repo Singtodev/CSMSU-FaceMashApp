@@ -89,6 +89,14 @@ export class FacemashApiService {
     );
   }
 
+  public voteGuest(winnerId: string, opponentId: string): Observable<any> {
+    let url = `${configs.facemashConfig.API_PATH + `/picture/vote/guest`}`;
+    return this.http.post(url, {
+      winnerId,
+      opponentId,
+    });
+  }
+
   public updateUser(
     uid: string,
     avatar_url: string,

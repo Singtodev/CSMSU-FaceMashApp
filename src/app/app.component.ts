@@ -24,7 +24,9 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     await this.initializeApp();
-    this.isLoading = false;
+    setTimeout(()=> {
+      this.isLoading = false;
+    },2000)
   }
 
   async initializeApp() {
