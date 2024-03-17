@@ -16,7 +16,9 @@
 
             <div class="flex flex-col pt-4">
               <p>Rank Yesterday</p>
-              <p *ngIf="yesterDayRank != null">{{ yesterDayRank || 0 }}</p>
+              <p *ngIf="yesterDayRank != null">
+                {{ yesterDayRank == -1 ? "None" : yesterDayRank || 0 }}
+              </p>
             </div>
 
             <div class="flex flex-col pt-4">
@@ -26,28 +28,38 @@
 
             <div class="flex flex-col pt-4">
               <p>Diff Rank</p>
-              <ng-container *ngIf="getDifferenceRank()! !== null; else loading">
-                <span *ngIf="getDifferenceRank()! === 0"> No Change </span>
-                <span
-                  *ngIf="
-                    getDifferenceRank()! > 0 && getDifferenceRank() !== null
-                  "
-                  class="text-green-500"
+
+              <div *ngIf="yesterDayRank != -1">
+                <ng-container
+                  *ngIf="getDifferenceRank()! !== null; else loading"
                 >
-                  + {{ getDifferenceRank() }}
-                </span>
-                <span
-                  *ngIf="
-                    getDifferenceRank()! < 0 && getDifferenceRank() !== null
-                  "
-                  class="text-red-500"
-                >
-                  {{ getDifferenceRank() }}
-                </span>
-              </ng-container>
-              <ng-template #loading>
-                <span>Loading...</span>
-              </ng-template>
+                  <span *ngIf="getDifferenceRank()! === 0"> No Change </span>
+                  <span
+                    *ngIf="
+                      getDifferenceRank()! > 0 && getDifferenceRank() !== null
+                    "
+                    class="text-green-500"
+                  >
+                    + {{ getDifferenceRank() }}
+                  </span>
+                  <span
+                    *ngIf="
+                      getDifferenceRank()! < 0 && getDifferenceRank() !== null
+                    "
+                    class="text-red-500"
+                  >
+                    {{ getDifferenceRank() }}
+                  </span>
+                </ng-container>
+                <ng-template #loading>
+                  <span>Loading...</span>
+                </ng-template>
+              </div>
+
+              <div *ngIf="yesterDayRank == -1">
+                  None
+              </div>
+              
             </div>
           </div>
           <div class="flex flex-col justify-end items-center">

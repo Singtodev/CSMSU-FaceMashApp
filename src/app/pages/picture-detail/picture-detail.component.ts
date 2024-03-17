@@ -148,9 +148,9 @@ export class PictureDetailComponent implements OnInit {
     let length = this.datasets[0]?.data?.length;
 
     if (length == null || length === 0) {
-      this.yesterDayRank = this.picture.rank
+      this.yesterDayRank = -1
       // Return a default value or handle the case where there is no data
-      return 0;
+      return -1;
     }
 
     let lastIndex = length - 1;
