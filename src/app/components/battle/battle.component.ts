@@ -155,7 +155,7 @@ export class BattleComponent implements OnInit {
       }).showToast();
     }
 
-    this.fmapi.voteGuest(id ,opponentId).subscribe((data) => {
+    this.fmapi.voteGuest(id, opponentId).subscribe((data) => {
       if (data.affectedRows === 1) {
         Toastify({
           text: `Guest Vote for ${data.win[0].name}!`,
@@ -170,10 +170,9 @@ export class BattleComponent implements OnInit {
           },
           onClick: function () {},
         }).showToast();
+        this.voteResult(data.results);
       }
     });
-
-    return this.loadRandomPictures();
   }
 
   public vote(id: any) {
@@ -196,12 +195,11 @@ export class BattleComponent implements OnInit {
           onClick: function () {},
         }).showToast();
       }
-
       let uid: any = this.auth.currentUserValue.uid;
       this.fmapi.vote(uid, id, opponentId).subscribe((data) => {
         if (data.affectedRows === 1) {
           Toastify({
-            text: `${this.auth.currentUserValue?.full_name } Vote for ${data.win[0].name}!`,
+            text: `${this.auth.currentUserValue?.full_name} Vote for ${data.win[0].name}!`,
             duration: 3000,
             newWindow: true,
             close: true,
@@ -214,23 +212,50 @@ export class BattleComponent implements OnInit {
             onClick: function () {},
           }).showToast();
         }
+        return this.voteResult(data.results);
       });
-
-      return this.loadRandomPictures();
+    } else {
+      return Toastify({
+        text: 'Please login ! ',
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: 'top',
+        position: 'right',
+        stopOnFocus: true,
+        style: {
+          background: 'linear-gradient(to right, #B00000, #C9C03D)',
+        },
+        onClick: function () {},
+      }).showToast();
     }
-    return Toastify({
-      text: 'Please login ! ',
-      duration: 3000,
-      newWindow: true,
-      close: true,
-      gravity: 'top',
-      position: 'right',
-      stopOnFocus: true,
-      style: {
-        background: 'linear-gradient(to right, #B00000, #C9C03D)',
+  }
+
+  public voteResult(result: any) {
+    Swal.fire({
+      title: 'Result',
+      html: `
+      <div class="flex flex-col text-sm lg:text-md indent-6">
+          <p> Winner <br/> ${result.win.name} => ${result.win.score}</p>
+          <p> Lost <br/>${result.lost.name} => ${result.lost.score}</p>
+      </div>
+    `,
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `,
       },
-      onClick: function () {},
-    }).showToast();
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `,
+      },
+    }).then(() => {});
+    return this.loadRandomPictures();
   }
 
   public goToTopRank() {
