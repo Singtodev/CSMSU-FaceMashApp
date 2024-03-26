@@ -17,7 +17,7 @@ export class ToprankComponent implements OnInit {
   public dateRanks: any[] = [];
   public topTen: any[] = [];
   public step = 0;
-
+  public isLoading = true;
   public menus = ['Top10', 'All Picture'];
 
   constructor(private fmapi: FacemashApiService, private location: Location) {}
@@ -82,6 +82,7 @@ export class ToprankComponent implements OnInit {
     this.fmapi.getAllPictures().subscribe((data) => {
       this.pictures = data;
       this.topTen = data.length > 10 ? data.slice(0, 10) : data;
+      this.isLoading = false
     });
   }
 

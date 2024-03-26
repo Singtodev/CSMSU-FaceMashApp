@@ -117,7 +117,7 @@ export class PictureDetailComponent implements OnInit {
           let color = this.getRandomColor();
           datasets[item.pid] = {
             label: item.name,
-            data: [{ x: this.convertToLocaleDate(item.date), y: item.rank }],
+            data: [{ x: this.convertToLocaleDate(item.date), y: item.rank}],
             backgroundColor: color,
             borderColor: color,
             borderWidth: 1,
@@ -142,33 +142,12 @@ export class PictureDetailComponent implements OnInit {
     });
   }
 
-  getDifferenceRank(): number | null {
-    if (!this.picture) return null;
-
-    let length = this.datasets[0]?.data?.length;
-
-    if (length == null || length === 0) {
-      this.yesterDayRank = -1
-      // Return a default value or handle the case where there is no data
-      return -1;
-    }
-
-    let lastIndex = length - 1;
-    let todayRank = this.picture?.rank;
-    this.yesterDayRank = this.datasets[0]?.data[lastIndex]?.y;
-    
-
-    if (todayRank == null || this.yesterDayRank == null) {
-      // Return a default value or handle the case where either today's or yesterday's rank is nullish
-      this.yesterDayRank = this.picture.rank
-      return 0;
-    }
-
-    // Perform the calculation
-    return this.yesterDayRank - todayRank;
-
-    // 1 - 2 = -1
+  getYesterDay(): any {
+    const data = this.datasets?.[0]?.data;
+    const last = data?.length ? data.length - 1 : null;
+    return last != null ? data[last].y : 'New Picture';
   }
+
 
   getPlus(num: any) {
     if (num == null) return;

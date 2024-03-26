@@ -1,7 +1,10 @@
-<router-outlet *ngIf="!isLoading" />
-<div
-  *ngIf="isLoading"
-  class="bg-black fixed w-screen h-screen flex justify-center items-center top-0"
->
-<span class="text-white font-light text-xl z-40">Loading...</span>
+<div class="relative">
+  <router-outlet *ngIf="!isLoading" />
+  <div
+    *ngIf="isLoading"
+    class="bg-black fixed w-screen h-screen flex justify-center items-center top-0 z-40"
+  >
+  <span class="text-white font-light text-xl z-40">Loading...</span>
+  </div>
+
 </div>

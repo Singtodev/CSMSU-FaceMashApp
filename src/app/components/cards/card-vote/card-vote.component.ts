@@ -16,6 +16,7 @@ export class CardVoteComponent {
   @Input() rank: string = '';
   @Input() elo: string = '';
   @Input() id: string = '';
+  @Input() updateRank: string = '';
 
   constructor(private router: Router, private auth: AuthService) {}
 

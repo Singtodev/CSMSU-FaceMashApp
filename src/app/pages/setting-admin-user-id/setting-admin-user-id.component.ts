@@ -133,7 +133,6 @@ export class SettingAdminUserIdComponent implements OnInit {
           console.log(data);
           if(data && data.length > 0){
             this.user = data[0];
-
           }
         })
         this.fmapi.getReport(String(this.uid)).subscribe((data) => {

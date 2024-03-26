@@ -75,7 +75,7 @@ export class BattleComponent implements OnInit {
     return this.pictures.sort((a, b) => b.rating_score - a.rating_score);
   }
 
-  public getRules() {
+  public getRules(result: any) {
     const actualScorePlayerA = 1;
     const kFactor = 32;
 
@@ -108,6 +108,12 @@ export class BattleComponent implements OnInit {
           <p class="text-left">If your vote for <span class="text-blue-300">${this.pictures[1].name}</span> has a score of  ${this.pictures[1].rating_score}, the reward score will be 
           <span class="text-green-300">${newBWin} </span> and ${this.pictures[0].name} will be <span class="text-red-300">${newALose}</span></p>
           <p class="py-2">${calBwin}</p>
+
+          <div class="flex flex-col text-sm lg:text-md indent-6 mt-10">
+              <p class="text-xl pb-3">Result</p>
+              <p> Winner: ${result.win.name} => ${result.win.score}</p>
+              <p> Lost:  ${result.lost.name} => ${result.lost.score}</p>
+          </div>
       </div>
     `,
       showClass: {
@@ -124,7 +130,9 @@ export class BattleComponent implements OnInit {
           animate__faster
         `,
       },
-    }).then(() => {});
+    }).then(() => {
+        this.loadRandomPictures()
+    });
   }
 
   handleVote(id: any) {
@@ -170,7 +178,7 @@ export class BattleComponent implements OnInit {
           },
           onClick: function () {},
         }).showToast();
-        this.voteResult(data.results);
+             return this.getRules(data.results);
       }
     });
   }
@@ -212,7 +220,7 @@ export class BattleComponent implements OnInit {
             onClick: function () {},
           }).showToast();
         }
-        return this.voteResult(data.results);
+        return this.getRules(data.results);
       });
     } else {
       return Toastify({
@@ -231,32 +239,6 @@ export class BattleComponent implements OnInit {
     }
   }
 
-  public voteResult(result: any) {
-    Swal.fire({
-      title: 'Result',
-      html: `
-      <div class="flex flex-col text-sm lg:text-md indent-6">
-          <p> Winner <br/> ${result.win.name} => ${result.win.score}</p>
-          <p> Lost <br/>${result.lost.name} => ${result.lost.score}</p>
-      </div>
-    `,
-      showClass: {
-        popup: `
-          animate__animated
-          animate__fadeInUp
-          animate__faster
-        `,
-      },
-      hideClass: {
-        popup: `
-          animate__animated
-          animate__fadeOutDown
-          animate__faster
-        `,
-      },
-    }).then(() => {});
-    return this.loadRandomPictures();
-  }
 
   public goToTopRank() {
     this.router.navigate(['toprank']);
