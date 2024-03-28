@@ -9,16 +9,16 @@ import { ReportChartComponent } from '../../components/report-chart/report-chart
 @Component({
   selector: 'app-setting-admin-user-id',
   standalone: true,
-  imports: [CardVoteComponent , CommonModule , ReportChartComponent],
+  imports: [CardVoteComponent, CommonModule, ReportChartComponent],
   templateUrl: './setting-admin-user-id.component.html',
-  styleUrl: './setting-admin-user-id.component.scss'
+  styleUrl: './setting-admin-user-id.component.scss',
 })
 export class SettingAdminUserIdComponent implements OnInit {
-
-  public uid: number = 0; 
+  public uid: number = 0;
   public datasets = [];
   public user: any = {};
   public loadingChart: boolean = false;
+  public isLoad: boolean = false;
 
   constructor(
     private ac: ActivatedRoute,
@@ -27,114 +27,138 @@ export class SettingAdminUserIdComponent implements OnInit {
     private fmapi: FacemashApiService
   ) {}
 
-    convertToLocaleTime(isoDateTimeStr: string) {
-      // Parse the input string into a Date object
-      var dateObj = new Date(isoDateTimeStr);
+  convertToLocaleTime(isoDateTimeStr: string) {
+    // Parse the input string into a Date object
+    var dateObj = new Date(isoDateTimeStr);
 
-      // Get the local time zone offset in minutes
-      var localOffset = dateObj.getTimezoneOffset();
+    // Get the local time zone offset in minutes
+    var localOffset = dateObj.getTimezoneOffset();
 
-      // Convert UTC time to local time
-      var localTime = new Date(dateObj.getTime() + (localOffset * 60000));
+    // Convert UTC time to local time
+    var localTime = new Date(dateObj.getTime() + localOffset * 60000);
 
-      // Extract date components
-      var day = localTime.getDate();
-      var monthIndex = localTime.getMonth();
-      var year = localTime.getFullYear();
-      var hours = localTime.getHours();
-      var minutes = localTime.getMinutes();
+    // Extract date components
+    var day = localTime.getDate();
+    var monthIndex = localTime.getMonth();
+    var year = localTime.getFullYear();
+    var hours = localTime.getHours();
+    var minutes = localTime.getMinutes();
 
-      // Define month names array
-      var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    // Define month names array
+    var monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
 
-      // Format the date part of the output string
-      var formattedDate = day.toString().padStart(2, '0') + ' ' +
-                          monthNames[monthIndex] + ' ' +
-                          year.toString().padStart(4, '0');
+    // Format the date part of the output string
+    var formattedDate =
+      day.toString().padStart(2, '0') +
+      ' ' +
+      monthNames[monthIndex] +
+      ' ' +
+      year.toString().padStart(4, '0');
 
-      // Format the time part of the output string
-      var formattedTime = hours.toString().padStart(2, '0') + ':' +
-                          minutes.toString().padStart(2, '0');
+    // Format the time part of the output string
+    var formattedTime =
+      hours.toString().padStart(2, '0') +
+      ':' +
+      minutes.toString().padStart(2, '0');
 
-      // Concatenate date and time with a space
-      var formattedDateTime = formattedDate + ' ' + formattedTime;
+    // Concatenate date and time with a space
+    var formattedDateTime = formattedDate + ' ' + formattedTime;
 
-      return formattedDateTime;
+    return formattedDateTime;
   }
 
-    convertToLocaleDate(isoDateTimeStr: string) {
-      // Parse the input string into a Date object
-      var dateObj = new Date(isoDateTimeStr);
+  convertToLocaleDate(isoDateTimeStr: string) {
+    // Parse the input string into a Date object
+    var dateObj = new Date(isoDateTimeStr);
 
-      // Get the local time zone offset in minutes
-      var localOffset = dateObj.getTimezoneOffset();
+    // Get the local time zone offset in minutes
+    var localOffset = dateObj.getTimezoneOffset();
 
-      // Convert UTC time to local time
-      var localTime = new Date(dateObj.getTime() + localOffset * 60000);
+    // Convert UTC time to local time
+    var localTime = new Date(dateObj.getTime() + localOffset * 60000);
 
-      // Extract date components
-      var day = localTime.getDate();
-      var monthIndex = localTime.getMonth();
-      var year = localTime.getFullYear();
+    // Extract date components
+    var day = localTime.getDate();
+    var monthIndex = localTime.getMonth();
+    var year = localTime.getFullYear();
 
-      // Define month names array
-      var monthNames = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
+    // Define month names array
+    var monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
 
-      // Format the date part of the output string
-      var formattedDate =
-        day.toString().padStart(2, '0') +
-        ' ' +
-        monthNames[monthIndex] +
-        ' ' +
-        year.toString().padStart(4, '0');
+    // Format the date part of the output string
+    var formattedDate =
+      day.toString().padStart(2, '0') +
+      ' ' +
+      monthNames[monthIndex] +
+      ' ' +
+      year.toString().padStart(4, '0');
 
-      return formattedDate;
-    }
+    return formattedDate;
+  }
 
-    getRandomColor() {
-      // Generate random values for RGB (Red, Green, Blue)
-      const r = Math.floor(Math.random() * 256);
-      const g = Math.floor(Math.random() * 256);
-      const b = Math.floor(Math.random() * 256);
+  getRandomColor() {
+    // Generate random values for RGB (Red, Green, Blue)
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
 
-      // Construct the CSS color string
-      const color = `rgb(${r},${g},${b})`;
+    // Construct the CSS color string
+    const color = `rgb(${r},${g},${b})`;
 
-      return color;
-    }
-
+    return color;
+  }
 
   ngOnInit() {
-    this.ac.paramMap.subscribe((value: any) => {
+    this.isLoad = true;
+    this.loadData();
+  }
+
+  async loadData() {
+    await this.ac.paramMap.subscribe((value: any) => {
       this.uid = value.params.id || null;
       if (this.auth.currentUserValue === null) {
         this.router.navigate(['/login']);
       }
-      if (this.auth?.currentUserValue?.role != null && this.auth?.currentUserValue?.role != 1) {
+      if (
+        this.auth?.currentUserValue?.role != null &&
+        this.auth?.currentUserValue?.role != 1
+      ) {
         this.router.navigate(['/setting']);
       }
 
-      if(this.uid != null){
-        this.fmapi.getUserById(String(this.uid)).subscribe((data)=> {
+      if (this.uid != null) {
+        this.fmapi.getUserById(String(this.uid)).subscribe((data) => {
           console.log(data);
-          if(data && data.length > 0){
+          if (data && data.length > 0) {
             this.user = data[0];
           }
-        })
+        });
         this.fmapi.getReport(String(this.uid)).subscribe((data) => {
           let datasets: any = {};
           for (let item of data) {
@@ -142,7 +166,12 @@ export class SettingAdminUserIdComponent implements OnInit {
               let color = this.getRandomColor();
               datasets[item.pid] = {
                 label: item.name,
-                data: [{ x: this.convertToLocaleDate(item.date), y: item.rating_score }],
+                data: [
+                  {
+                    x: this.convertToLocaleDate(item.date),
+                    y: item.rating_score,
+                  },
+                ],
                 backgroundColor: color,
                 borderColor: color,
                 borderWidth: 1,
@@ -165,10 +194,8 @@ export class SettingAdminUserIdComponent implements OnInit {
           this.datasets = Object.values(datasets);
           this.loadingChart = false;
         });
-
       }
-
     });
+    this.isLoad = false;
   }
-
 }
