@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/api/auth.service';
 import { FacemashApiService } from '../../services/api/facemash-api.service';
 import { CardVoteComponent } from '../../components/cards/card-vote/card-vote.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ReportChartComponent } from '../../components/report-chart/report-chart.component';
 
 @Component({
@@ -24,8 +24,14 @@ export class SettingAdminUserIdComponent implements OnInit {
     private ac: ActivatedRoute,
     private auth: AuthService,
     private router: Router,
-    private fmapi: FacemashApiService
+    private fmapi: FacemashApiService,
+    private location: Location
   ) {}
+
+
+  goBack(){
+    this.location.back();
+  }
 
   convertToLocaleTime(isoDateTimeStr: string) {
     // Parse the input string into a Date object
@@ -157,13 +163,13 @@ export class SettingAdminUserIdComponent implements OnInit {
 
       if (this.uid != null) {
         this.fmapi.getUserById(String(this.uid)).subscribe((data : any) => {
-          console.log(data);
           if (data && data.length > 0) {
             this.user = data[0];
           }
         });
         this.fmapi.getReport(String(this.uid)).subscribe((data : any) => {
           let datasets: any = {};
+          if(!data) return;
           for (let item of data) {
             if (!datasets[item.pid]) {
               let color = this.getRandomColor();
