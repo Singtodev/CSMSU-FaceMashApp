@@ -3,9 +3,64 @@
     class="relative w-full h-[13rem] overflow-hidden rounded-xl cursor-pointer"
   >
     <div
-      class="absolute top-2 left-2 bg-black/60 text-white px-2 rounded-md z-20 flex flex-row"
+      class="absolute top-2 left-2 bg-black/60 text-white px-2 rounded-md z-20 flex flex-row gap-x-2 items-center"
     >
-      {{ updateRank }}
+      <div>
+        <svg
+          *ngIf="updateRank === 'New Picture' || updateRank === 'No Change'"
+          fill="#fff"
+          height="16px"
+          width="16px"
+          version="1.1"
+          id="Capa_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 230.453 230.453"
+          xml:space="preserve"
+        >
+          <polygon
+            points="177.169,43.534 177.169,58.534 204.845,58.534 135.896,127.479 92.36,83.947 0,176.312 10.606,186.918 
+   92.361,105.16 135.896,148.691 215.453,69.14 215.453,96.784 230.453,96.784 230.453,43.534 "
+          />
+        </svg>
+        <svg
+          *ngIf="updateRank > 0"
+          fill="#00FF4C"
+          height="16px"
+          width="16px"
+          version="1.1"
+          id="Capa_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 230.453 230.453"
+          xml:space="preserve"
+        >
+          <polygon
+            points="177.169,43.534 177.169,58.534 204.845,58.534 135.896,127.479 92.36,83.947 0,176.312 10.606,186.918 
+ 92.361,105.16 135.896,148.691 215.453,69.14 215.453,96.784 230.453,96.784 230.453,43.534 "
+          />
+        </svg>
+        <svg
+          *ngIf="updateRank < 0"
+          fill="#FF0000"
+          class="rotate-90"
+          height="16px"
+          width="16px"
+          version="1.1"
+          id="Capa_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 230.453 230.453"
+          xml:space="preserve"
+        >
+          <polygon
+            points="177.169,43.534 177.169,58.534 204.845,58.534 135.896,127.479 92.36,83.947 0,176.312 10.606,186.918 
+92.361,105.16 135.896,148.691 215.453,69.14 215.453,96.784 230.453,96.784 230.453,43.534 "
+          />
+        </svg>
+      </div>
+
+      <span> {{ updateRank }}</span>
     </div>
 
     <img

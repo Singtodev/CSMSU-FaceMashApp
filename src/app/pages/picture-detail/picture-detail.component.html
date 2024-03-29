@@ -26,7 +26,7 @@
 
             <div class="flex flex-col pt-4">
               <p>Rank Change</p>
-              {{picture?.updateRank}}
+              {{picture?.updateRank === 'New Picture' || picture?.updateRank == 'No Change' ? '-' : picture?.updateRank }}
               <!-- <div *ngIf="yesterDayRank != -1">
                 <ng-container
                   *ngIf="getDifferenceRank()! !== null; else loading"

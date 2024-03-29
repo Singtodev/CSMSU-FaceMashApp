@@ -134,9 +134,12 @@ export class SettingAdminUserIdComponent implements OnInit {
     return color;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.isLoad = true;
-    this.loadData();
+    await this.loadData();
+    setTimeout(()=> {
+      this.isLoad = false;
+    },1000)
   }
 
   async loadData() {
@@ -153,13 +156,13 @@ export class SettingAdminUserIdComponent implements OnInit {
       }
 
       if (this.uid != null) {
-        this.fmapi.getUserById(String(this.uid)).subscribe((data) => {
+        this.fmapi.getUserById(String(this.uid)).subscribe((data : any) => {
           console.log(data);
           if (data && data.length > 0) {
             this.user = data[0];
           }
         });
-        this.fmapi.getReport(String(this.uid)).subscribe((data) => {
+        this.fmapi.getReport(String(this.uid)).subscribe((data : any) => {
           let datasets: any = {};
           for (let item of data) {
             if (!datasets[item.pid]) {
@@ -196,6 +199,5 @@ export class SettingAdminUserIdComponent implements OnInit {
         });
       }
     });
-    this.isLoad = false;
   }
 }
